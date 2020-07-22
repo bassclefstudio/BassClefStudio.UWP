@@ -19,6 +19,6 @@ jobs:
     - name: MSBuild
       run: msbuild BassClefStudio.UWP.sln -t:build -p:Configuration=Debug -p:Platform=x64 -m -restore
     - name: Nuget Pack
-      run: nuget pack nuget pack **.nuspec
+      run: nuget pack nuget pack *.csproj
     - name: Nuget Push
-      run: nuget push "**.nupkg" -Source "GPR" -SkipDuplicate
+      run: nuget push "*.nupkg" -Source "GPR" -SkipDuplicate
