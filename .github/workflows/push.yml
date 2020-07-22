@@ -20,7 +20,7 @@ jobs:
       run: msbuild BassClefStudio.UWP.sln -t:build -p:Configuration=Debug -p:Platform=x64 -m -restore
     - name: Nuget Pack
       run: |
-      nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.nuspec
-      nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.nuspec
+        nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.nuspec
+        nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.nuspec
     - name: Nuget Push
       run: nuget push "*.nupkg" -Source "GPR" -SkipDuplicate
