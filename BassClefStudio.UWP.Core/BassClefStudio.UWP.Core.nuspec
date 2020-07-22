@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>BassClefStudio.UWP.Core</id>
+    <version>1.0.0</version>
+    <title>BassClefStudio.UWP.Core</title>
+    <authors>BassClefStudio</authors>
+    <owners>BassClefStudio</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <repositoryUrl>https://github.com/bassclefstudio/BassClefStudio.UWP</repositoryUrl>
+    <description>Contains helper classes, services, and extension methods for creating UWP projects.</description>
+    <dependencies>
+      <group targetFramework="uap10.0.15063">
+      </group>
+    </dependencies>
+  </metadata>
+</package>
