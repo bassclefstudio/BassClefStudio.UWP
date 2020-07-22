@@ -9,22 +9,16 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    
-    env:
-      solution: '**/*.sln'
-      buildPlatform: 'x86|x64|ARM'
-      buildConfiguration: 'Release'
-      appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
      
     steps:
     - uses: actions/checkout@v2
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.0.0
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
     - name: Add GitHub Packages for Nuget
       run: dotnet nuget add source https://nuget.pkg.github.com/bassclefstudio/index.json --name "GPR" --username bassclefstudio --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
     - name: Install dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --framework uap10.0.15063 --runtime win10-x64
+    - name: MSBuild
+      run: msbuild BassClefStudio.UWP.sln -t:build -p:Configuration=Debug -p:Platform=x64 -m -restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
