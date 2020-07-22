@@ -8,13 +8,18 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
+     
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - name: Configure Pagefile
+      uses: al-cheb/configure-pagefile-action@v1.2
+      with:
+        minimum-size: 32GB
+        maximum-size: 32GB
+        disk-root: "C:"
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
       with:
         dotnet-version: 3.1.301
     - name: Add GitHub Packages for Nuget
@@ -22,6 +27,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --framework uap10.0.15063 --runtime win10 --configuration Debug --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
