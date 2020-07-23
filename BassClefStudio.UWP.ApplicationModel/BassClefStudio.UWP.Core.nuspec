@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>BassClefStudio.UWP.ApplicationModel</id>
+    <version>1.0.0</version>
+    <title>BassClefStudio.UWP.ApplicationModel</title>
+    <authors>BassClefStudio</authors>
+    <owners>BassClefStudio</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <description>Provides classes and services for managing application lifecycle, launch, and initialization, connecting with background tasks, app services, and various other activation patterns.</description>
+    <dependencies>
+      <group targetFramework="uap10.0.15063">
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>
+      </group>
+    </dependencies>
+  </metadata>
+</package>
