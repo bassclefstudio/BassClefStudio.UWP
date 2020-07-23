@@ -25,5 +25,6 @@ jobs:
       run: |
         nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.nuspec
         nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.nuspec
+        nuget pack .\BassClefStudio.UWP.ApplicationModel\BassClefStudio.UWP.ApplicationModel.nuspec
     - name: Nuget Push
       run: nuget push "*.nupkg" -Source "GPR" -SkipDuplicate

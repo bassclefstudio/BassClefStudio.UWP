@@ -6,3 +6,5 @@ A collection of UWP libraries for use in all types of UWP .NET projects.
 Contains helper classes, services, and extension methods for creating UWP projects.
 ## BassClefStudio.UWP.Navigation
 Provides a library for managing navigation between pages and dialogs, with support for the MMVM pattern and dependency injection.
+## BassClefStudio.UWP.ApplicationModel
+Provides classes and services for managing application lifecycle, launch, and initialization, connecting with background tasks, app services, and various other activation patterns.
