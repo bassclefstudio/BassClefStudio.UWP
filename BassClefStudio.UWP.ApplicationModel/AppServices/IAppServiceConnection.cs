@@ -1,5 +1,4 @@
-﻿using BassClefStudio.UWP.OAuthApi.Defaults;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,23 +55,24 @@ namespace BassClefStudio.UWP.ApplicationModel.AppServices
             }
             else
             {
-                OAuthApi.Authentication.OAuthAuthenticationService authService =
-                    DefaultAuthenticationService.GetMicrosoftService(
-                        clientId,
-                        new string[][] 
-                        { 
-                            DefaultAuthenticationService.MicrosoftBasicScopes,
-                            new string[] { "Device.Command", "Device.Read" } 
-                        });
-                var account = await authService.TrySignIn();
-                if (account == null)
-                {
-                    throw new AppServiceException("Could not sign in to Microsoft account.");
-                }
-                else
-                {
-                    return new WebAppServiceConnection(remoteSystem, serviceName, packageName, new NET.OAuthApi.Api.ApiService(account));
-                }
+                throw new NotImplementedException("Web app service connections are not currently supported.");
+                //OAuthApi.Authentication.OAuthAuthenticationService authService =
+                //    DefaultAuthenticationService.GetMicrosoftService(
+                //        clientId,
+                //        new string[][] 
+                //        { 
+                //            DefaultAuthenticationService.MicrosoftBasicScopes,
+                //            new string[] { "Device.Command", "Device.Read" } 
+                //        });
+                //var account = await authService.TrySignIn();
+                //if (account == null)
+                //{
+                //    throw new AppServiceException("Could not sign in to Microsoft account.");
+                //}
+                //else
+                //{
+                //    return new WebAppServiceConnection(remoteSystem, serviceName, packageName, new NET.OAuthApi.Api.ApiService(account));
+                //}
             }
         }
 

@@ -136,6 +136,16 @@
       <Version>6.2.10</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.csproj">
+      <Project>{15d27135-a99f-4d26-ade7-d86e9b67cfa6}</Project>
+      <Name>BassClefStudio.UWP.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.csproj">
+      <Project>{0f404a33-9f99-425f-a463-c6ab4dfc2f06}</Project>
+      <Name>BassClefStudio.UWP.Navigation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
