@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 using BassClefStudio.NET.Core;
 using BassClefStudio.UWP.ApplicationModel.Activation;
 using BassClefStudio.UWP.ApplicationModel.AppServices;
 using BassClefStudio.UWP.Background;
 using BassClefStudio.UWP.Navigation;
-using BassClefStudio.UWP.Sockets.Background;
-using BassClefStudio.UWP.Sockets.Core;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -18,38 +16,80 @@ using Windows.ApplicationModel.Background;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace BassClefStudio.UWP.ApplicationModel
 {
+    /// <summary>
+    /// Represents a UWP <see cref="Windows.UI.Xaml.Application"/> with additional logic for connecting to the BassClefStudio.UWP.Navigation stack, handling application launch, and managing background tasks.
+    /// </summary>
     public abstract class Application : Windows.UI.Xaml.Application
     {
         #region Constructor
 
+        /// <summary>
+        /// A <see cref="Func{T, TResult}"/> that returns the <see cref="Type"/> of the main page of the application given the <see cref="IActivatedEventArgs"/>.
+        /// </summary>
         public Func<IActivatedEventArgs, Type> MainPageType { get; }
+
+        /// <summary>
+        /// A <see cref="Func{T, TResult}"/> that returns the <see cref="Type"/> of the shell (navigation) page of the application given the <see cref="IActivatedEventArgs"/>.
+        /// </summary>
         public Func<IActivatedEventArgs, Type> ShellPageType { get; }
-        public Type[] AssemblyTypes { get; }
 
+        /// <summary>
+        /// A list of the <see cref="Assembly"/> objects to initialize the Navigation DI container with.
+        /// </summary>
+        public Assembly[] Assemblies { get; }
 
-        public Application(Func<IActivatedEventArgs, Type> shellPageType, Type viewModelAssemblyType, Type[] assemblyTypes, Func<IActivatedEventArgs, Type> mainPageType)
+        /// <summary>
+        /// Creates an <see cref="Application"/> with the given activation information and DI parameters.
+        /// </summary>
+        /// <param name="shellPageType">A <see cref="Func{T, TResult}"/> that returns the <see cref="Type"/> of the shell (navigation) page of the application given the <see cref="IActivatedEventArgs"/>.</param>
+        /// <param name="viewModelAssembly">The <see cref="Assembly"/> that the view-models are contained in.</param>
+        /// <param name="assemblies">A collection of <see cref="Assembly"/> objects to register with the DI container.</param>
+        /// <param name="mainPageType">A <see cref="Func{T, TResult}"/> that returns the <see cref="Type"/> of the main page of the application given the <see cref="IActivatedEventArgs"/>.</param>
+        public Application(Func<IActivatedEventArgs, Type> shellPageType, Assembly viewModelAssembly, Assembly[] assemblies, Func<IActivatedEventArgs, Type> mainPageType)
         {
             ShellPageType = shellPageType;
-            AssemblyTypes = assemblyTypes;
-            NavigationService.InitializeContainer(viewModelAssemblyType, AssemblyTypes);
+            Assemblies = assemblies;
+            NavigationService.InitializeContainer(viewModelAssembly, Assemblies);
             MainPageType = mainPageType;
             this.Suspending += OnSuspending;
         }
 
-        public Application(Type shellPageType, Type viewModelAssemblyType, Type[] assemblyTypes, Func<IActivatedEventArgs, Type> mainPageType) : this(a => shellPageType, viewModelAssemblyType, assemblyTypes, mainPageType)
+        /// <summary>
+        /// Creates an <see cref="Application"/> with the given activation information and DI parameters.
+        /// </summary>
+        /// <param name="shellPageType">The <see cref="Type"/> of the shell (navigation) page of the application.</param>
+        /// <param name="viewModelAssembly">The <see cref="Assembly"/> that the view-models are contained in.</param>
+        /// <param name="assemblies">A collection of <see cref="Assembly"/> objects to register with the DI container.</param>
+        /// <param name="mainPageType">A <see cref="Func{T, TResult}"/> that returns the <see cref="Type"/> of the main page of the application given the <see cref="IActivatedEventArgs"/>.</param>
+        public Application(Type shellPageType, Assembly viewModelAssembly, Assembly[] assemblies, Func<IActivatedEventArgs, Type> mainPageType) : this(a => shellPageType, viewModelAssembly, assemblies, mainPageType)
         { }
 
-        public Application(Type shellPageType, Type mainPageType, Type[] assemblyTypes) : this(a => shellPageType, shellPageType, assemblyTypes, a => mainPageType)
+        /// <summary>
+        /// Creates an <see cref="Application"/> with the given activation information and DI parameters.
+        /// </summary>
+        /// <param name="shellPageType">The <see cref="Type"/> of the shell (navigation) page of the application.</param>
+        /// <param name="assemblies">A collection of <see cref="Assembly"/> objects to register with the DI container.</param>
+        /// <param name="mainPageType">The <see cref="Type"/> of the main page of the application.</param>
+        public Application(Type shellPageType, Type mainPageType, Assembly[] assemblies) : this(a => shellPageType, shellPageType.GetTypeInfo().Assembly, assemblies, a => mainPageType)
         { }
 
-        public Application(Type shellPageType, Type mainPageType) : this(a => shellPageType, shellPageType, new Type[] { shellPageType }, a => mainPageType)
+        /// <summary>
+        /// Creates an <see cref="Application"/> with the given activation information and DI parameters.
+        /// </summary>
+        /// <param name="shellPageType">The <see cref="Type"/> of the shell (navigation) page of the application.</param>
+        /// <param name="mainPageType">The <see cref="Type"/> of the main page of the application.</param>
+        public Application(Type shellPageType, Type mainPageType) : this(a => shellPageType, shellPageType.GetTypeInfo().Assembly, new Assembly[] { shellPageType.GetTypeInfo().Assembly }, a => mainPageType)
         { }
 
-        public Application(Func<IActivatedEventArgs, Type> shellPageType, Type mainPageType) : this(shellPageType, mainPageType, new Type[] { mainPageType }, a => mainPageType)
+        /// <summary>
+        /// Creates an <see cref="Application"/> with the given activation information and DI parameters.
+        /// </summary>
+        /// <param name="shellPageType">A <see cref="Func{T, TResult}"/> that returns the <see cref="Type"/> of the shell (navigation) page of the application given the <see cref="IActivatedEventArgs"/>.</param>
+        /// <param name="mainPageType">The <see cref="Type"/> of the main page of the application.</param>
+        public Application(Func<IActivatedEventArgs, Type> shellPageType, Type mainPageType) : this(shellPageType, mainPageType.GetTypeInfo().Assembly, new Assembly[] { mainPageType.GetTypeInfo().Assembly }, a => mainPageType)
         { }
 
         #endregion
@@ -182,19 +222,30 @@ namespace BassClefStudio.UWP.ApplicationModel
         private AppServiceConnection _appServiceConnection;
         private BackgroundTaskDeferral _appServiceDeferral;
 
+        /// <summary>
+        /// Represents the collection of <see cref="AppServiceHandler"/>s that can manage background and foreground app service requests.
+        /// </summary>
         public AppServiceHandler[] AppServiceHandlers { get; private set; }
 
+        /// <summary>
+        /// Initializes the <see cref="AppServiceHandlers"/> collection.
+        /// </summary>
+        /// <param name="handlers">The <see cref="Application"/>'s <see cref="AppServiceHandler"/>s.</param>
         public void SetupAppServices(params AppServiceHandler[] handlers)
         {
             AppServiceHandlers = handlers;
         }
 
-        private async void OnAppServiceRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+        private void OnAppServiceRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
-            Debug.WriteLine($"Recieved app service request");
-
-
             AppServiceDeferral messageDeferral = args.GetDeferral();
+            var toRun = new SynchronousTask(() => ProcessAppServiceRequest(args));
+            toRun.RunTask();
+        }
+
+        private async Task ProcessAppServiceRequest(AppServiceRequestReceivedEventArgs args)
+        {
+            Debug.WriteLine($"Recieved app service request.");
 
             try
             {
@@ -214,10 +265,6 @@ namespace BassClefStudio.UWP.ApplicationModel
                     ////Add internal exception handling here.
                 }
             }
-            finally
-            {
-                messageDeferral.Complete();
-            }
         }
 
         private void OnAppServicesCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
@@ -233,41 +280,52 @@ namespace BassClefStudio.UWP.ApplicationModel
         #endregion
         #region Communication
 
-        public IBrokeredService[] BackgroundServices { get; private set; }
+        //public IBrokeredService[] BackgroundServices { get; private set; }
 
-        public void SetupBackgroundConnections(params IBrokeredService[] services)
-        {
-            BackgroundServices = services;
-        }
+        //public void SetupBackgroundConnections(params IBrokeredService[] services)
+        //{
+        //    BackgroundServices = services;
+        //}
 
-        private void PushAllConnections()
-        {
-            if (BackgroundServices != null)
-            {
-                foreach (var connection in BackgroundServices)
-                {
-                    if (connection.ServiceStatus == BrokeredServiceStatus.InProcess)
-                    {
-                        var result = connection.PushToBroker();
-                        if (result)
-                        {
-                            Debug.WriteLine($"Connection {connection.Name} successfully pushed to broker.");
-                        }
-                        else
-                        {
-                            Debug.WriteLine($"Connection {connection.Name} failed to push to broker.");
-                        }
-                    }
-                }
-            }
-        }
+        //private void PushAllConnections()
+        //{
+        //    if (BackgroundServices != null)
+        //    {
+        //        foreach (var connection in BackgroundServices)
+        //        {
+        //            if (connection.ServiceStatus == BrokeredServiceStatus.InProcess)
+        //            {
+        //                var result = connection.PushToBroker();
+        //                if (result)
+        //                {
+        //                    Debug.WriteLine($"Connection {connection.Name} successfully pushed to broker.");
+        //                }
+        //                else
+        //                {
+        //                    Debug.WriteLine($"Connection {connection.Name} failed to push to broker.");
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         #endregion
         #region BackgroundHandlers
 
+        /// <summary>
+        /// Represents the collection of <see cref="BackgroundHandler"/>s that can manage background task activation.
+        /// </summary>
         public BackgroundHandler[] BackgroundHandlers { get; private set; }
+
+        /// <summary>
+        /// A <see cref="bool"/> value indicating whether all <see cref="BackgroundHandler"/>s have been registered.
+        /// </summary>
         public bool BackgroundHandlersLoaded { get; private set; } = false;
 
+        /// <summary>
+        /// Initializes the <see cref="BackgroundHandlers"/> collection.
+        /// </summary>
+        /// <param name="handlers">The <see cref="Application"/>'s <see cref="BackgroundHandler"/>s.</param>
         public void SetupBackgroundTasks(params BackgroundHandler[] handlers)
         {
             BackgroundHandlers = handlers;
@@ -284,13 +342,13 @@ namespace BassClefStudio.UWP.ApplicationModel
                 }
             }
 
-            if (BackgroundServices != null)
-            {
-                foreach (var c in BackgroundServices.OfType<IBackgroundSocketConnection>())
-                {
-                    tasks.Add(c.ConnectedBackgroundTask.RegisterTaskAsync(false));
-                }
-            }
+            //if (BackgroundServices != null)
+            //{
+            //    foreach (var c in BackgroundServices.OfType<IBackgroundSocketConnection>())
+            //    {
+            //        tasks.Add(c.ConnectedBackgroundTask.RegisterTaskAsync(false));
+            //    }
+            //}
 
             foreach (var task in tasks)
             {

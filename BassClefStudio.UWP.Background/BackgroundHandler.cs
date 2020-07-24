@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
-namespace Decklan.UWP.Background
+namespace BassClefStudio.UWP.Background
 {
     /// <summary>
     /// Represents a service that can manage the calling and registering of a given background task.
