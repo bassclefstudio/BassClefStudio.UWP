@@ -1,4 +1,5 @@
-﻿using BassClefStudio.UWP.Lifecycle;
+﻿using Autofac;
+using BassClefStudio.UWP.Lifecycle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace BassClefStudio.UWP.Navigation.Extensions
     /// </summary>
     public class NavigationServiceHandler : INavigationHandler, IBackHandler
     {
+        /// <inheritdoc/>
         public bool Enabled { get; }
 
         public NavigationServiceHandler()
@@ -52,6 +54,7 @@ namespace BassClefStudio.UWP.Navigation.Extensions
             return true;
         }
 
+        /// <inheritdoc/>
         public bool BackRequested(Lifecycle.Application app)
         {
             if(NavigationService.CanGoBack)
@@ -63,6 +66,14 @@ namespace BassClefStudio.UWP.Navigation.Extensions
             {
                 return false;
             }
+        }
+    }
+
+    public static class NavigationBuilderExtensions
+    {
+        public static void AddNavigationService(this ContainerBuilder builder)
+        {
+            builder.RegisterType<NavigationServiceHandler>().AsImplementedInterfaces();
         }
     }
 }

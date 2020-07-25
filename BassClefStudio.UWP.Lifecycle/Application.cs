@@ -67,6 +67,8 @@ namespace BassClefStudio.UWP.Lifecycle
             {
                 handler.BackRequested(this);
             }
+
+            e.Handled = true;
         }
 
         private void OnSuspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
