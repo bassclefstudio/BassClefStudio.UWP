@@ -8,6 +8,19 @@ using Windows.ApplicationModel.Activation;
 namespace BassClefStudio.UWP.Lifecycle
 {
     /// <summary>
+    /// Represents a service that can initialize a particular service when the <see cref="Application"/> initializes.
+    /// </summary>
+    public interface IInitializationHandler : ILifecycleHandler
+    {
+        /// <summary>
+        /// A method that is called when the <see cref="Application"/> initializes.
+        /// </summary>
+        /// <param name="app">The app's <see cref="Application"/> object.</param>
+        /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
+        bool Initialize(Application app);
+    }
+
+    /// <summary>
     /// Represents a service that can manage an <see cref="Application"/>'s back navigation.
     /// </summary>
     public interface IBackHandler : ILifecycleHandler
@@ -18,6 +31,19 @@ namespace BassClefStudio.UWP.Lifecycle
         /// <param name="app">The app's <see cref="Application"/> object.</param>
         /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
         bool BackRequested(Application app);
+    }
+
+    /// <summary>
+    /// Represents a service that can manage an <see cref="Application"/>'s suspension from the foreground.
+    /// </summary>
+    public interface ISuspendingHandler : ILifecycleHandler
+    {
+        /// <summary>
+        /// A method that is called whenever a foreground-activated <see cref="Application"/> is closing or returning to the background. Here, the <see cref="ILifecycleHandler"/> can dispose or broker resources before the <see cref="Application"/> has fully closed.
+        /// </summary>
+        /// <param name="app">The app's <see cref="Application"/> object.</param>
+        /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
+        bool OnSuspending(Application app);
     }
 
     /// <summary>
@@ -62,19 +88,6 @@ namespace BassClefStudio.UWP.Lifecycle
         /// <param name="args">The <see cref="BackgroundActivatedEventArgs"/> which describe the background activation.</param>
         /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
         Task<bool> BackgroundActivated(Application app, BackgroundActivatedEventArgs args);
-    }
-
-    /// <summary>
-    /// Represents a service that can manage an <see cref="Application"/>'s suspension from the foreground.
-    /// </summary>
-    public interface ISuspendingHandler : ILifecycleHandler
-    {
-        /// <summary>
-        /// A method that is called whenever a foreground-activated <see cref="Application"/> is closing or returning to the background. Here, the <see cref="ILifecycleHandler"/> can dispose or broker resources before the <see cref="Application"/> has fully closed.
-        /// </summary>
-        /// <param name="app">The app's <see cref="Application"/> object.</param>
-        /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
-        bool OnSuspending(Application app);
     }
 
     /// <summary>
