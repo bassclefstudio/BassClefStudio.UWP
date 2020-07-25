@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using BassClefStudio.NET.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
