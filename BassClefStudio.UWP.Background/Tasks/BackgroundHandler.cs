@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
-namespace BassClefStudio.UWP.Background
+namespace BassClefStudio.UWP.Background.Tasks
 {
     /// <summary>
     /// Represents a service that can manage the calling and registering of a given background task.
@@ -63,15 +63,6 @@ namespace BassClefStudio.UWP.Background
         public event EventHandler IsActiveChanged;
 
         /// <summary>
-        /// A collection of all the registered <see cref="BackgroundHandler"/>s.
-        /// </summary>
-        public static List<BackgroundHandler> BackgroundHandlers { get; }
-        static BackgroundHandler()
-        {
-            BackgroundHandlers = new List<BackgroundHandler>();
-        }
-
-        /// <summary>
         /// Creates a new <see cref="BackgroundHandler"/> from the given information and associated <see cref="System.Threading.Tasks.Task"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="BackgroundHandler"/>.</param>
@@ -101,18 +92,18 @@ namespace BassClefStudio.UWP.Background
         public BackgroundHandler(string name, Func<IBackgroundTaskInstance, Task> task, uint minutes, bool isNetworkRequested = false, bool isDebugEnabled = false)
             : this(name, task, new TimeTrigger(minutes, false), isNetworkRequested, isDebugEnabled) { }
 
-        /// <summary>
-        /// Completes the registration of all <see cref="BackgroundHandlers"/> by unregistering undeclared tasks.
-        /// </summary>
-        public static void CompleteRegistrations()
-        {
-            var toRemove = BackgroundTaskRegistration.AllTasks.Where(t => !BackgroundHandlers.Any(h => h.Name == t.Value.Name));
-            Debug.WriteLine($"Unregistering {toRemove.Count()} background tasks.");
-            foreach (var r in toRemove)
-            {
-                r.Value.Unregister(false);
-            }
-        }
+        ///// <summary>
+        ///// Completes the registration of all <see cref="BackgroundHandlers"/> by unregistering undeclared tasks.
+        ///// </summary>
+        //public static void CompleteRegistrations()
+        //{
+        //    var toRemove = BackgroundTaskRegistration.AllTasks.Where(t => !BackgroundHandlers.Any(h => h.Name == t.Value.Name));
+        //    Debug.WriteLine($"Unregistering {toRemove.Count()} background tasks.");
+        //    foreach (var r in toRemove)
+        //    {
+        //        r.Value.Unregister(false);
+        //    }
+        //}
 
         private void SetActive(bool active)
         {
