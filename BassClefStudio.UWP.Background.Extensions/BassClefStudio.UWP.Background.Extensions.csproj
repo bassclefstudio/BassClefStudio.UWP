@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BackgroundActivationHandler.cs" />
+    <Compile Include="BackgroundInitiailzationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\BassClefStudio.UWP.Background.Extensions.rd.xml" />
   </ItemGroup>

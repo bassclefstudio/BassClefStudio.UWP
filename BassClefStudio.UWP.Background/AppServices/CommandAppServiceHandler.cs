@@ -23,12 +23,12 @@ namespace BassClefStudio.UWP.Background.AppServices
         }
 
         /// <summary>
-        /// A function that returns an asynchronous <see cref="Task{TResult}"/> that takes an <see cref="Dictionary{TKey, TValue}"/> and returns an <see cref="object"/>. To send and recieve <see cref="AppServiceOutput"/> and <see cref="AppServiceOutput"/> objects, use <see cref="Execute"/>.
+        /// A function that returns an asynchronous <see cref="Task{TResult}"/> that takes an <see cref="Dictionary{TKey, TValue}"/> and returns an <see cref="object"/>. To send and recieve <see cref="AppServiceOutput"/> and <see cref="AppServiceOutput"/> objects, use <see cref="ExecuteAsync"/>.
         /// </summary>
         public abstract Task<object> GetOutputInternal(Dictionary<string, object> inputs);
 
         /// <inheritdoc/>
-        public async Task<AppServiceOutput> Execute(AppServiceInput input)
+        public async Task<AppServiceOutput> ExecuteAsync(AppServiceInput input)
         {
             try
             {

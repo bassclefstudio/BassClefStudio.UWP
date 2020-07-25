@@ -21,6 +21,6 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// An asynchronous <see cref="Task"/> that takes an <see cref="AppServiceInput"/> and returns an <see cref="AppServiceOutput"/>.
         /// </summary>
         /// <param name="input">The <see cref="AppServiceInput"/> sent from another application.</param>
-        Task<AppServiceOutput> Execute(AppServiceInput input);
+        Task<AppServiceOutput> ExecuteAsync(AppServiceInput input);
     }
 }

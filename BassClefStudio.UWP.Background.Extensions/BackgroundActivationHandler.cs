@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using BassClefStudio.UWP.Background.Tasks;
 using BassClefStudio.UWP.Lifecycle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
@@ -10,15 +12,18 @@ using Windows.ApplicationModel.Activation;
 namespace BassClefStudio.UWP.Background.Extensions
 {
     /// <summary>
-    /// An <see cref="IBackgroundActivationHandler"/> using the <see cref="BackgroundHandler"/> for the core background task management logic.
+    /// An <see cref="IBackgroundActivationHandler"/> using the <see cref="BackgroundService"/> for the core background task management logic.
     /// </summary>
     public class BackgroundActivationHandler : IBackgroundActivationHandler
     {
         /// <inheritdoc/>
         public bool Enabled { get; }
 
-        public BackgroundActivationHandler()
+        public IEnumerable<IBackgroundService> BackgroundHandlers { get; }
+
+        public BackgroundActivationHandler(IEnumerable<IBackgroundService> backgroundHandlers)
         {
+            BackgroundHandlers = backgroundHandlers;
             Enabled = true;
         }
 
@@ -27,12 +32,11 @@ namespace BassClefStudio.UWP.Background.Extensions
         {
             if(args.TaskInstance.TriggerDetails == null)
             {
-                var task = BackgroundHandler.BackgroundHandlers
-                    .FirstOrDefault(h => h.Name == args.TaskInstance.Task.Name);
+                var task = BackgroundHandlers.GetBackgroundHandler(args.TaskInstance);
                 
                 if(task != null)
                 {
-                    await task.Task(args.TaskInstance);
+                    await task.RunAsync(args.TaskInstance);
                     return true;
                 }
                 else
@@ -49,9 +53,14 @@ namespace BassClefStudio.UWP.Background.Extensions
 
     public static class BackgroundBuilderExtensions
     {
-        public static void AddNavigationService(this ContainerBuilder builder)
+        /// <summary>
+        /// Adds the <see cref="BackgroundActivationHandler"/> to handle background tasks using the <see cref="IBackgroundService"/> interface.
+        /// </summary>
+        /// <param name="handlerAssemblies">A collection of <see cref="Assembly"/> objects where <see cref="IBackgroundService"/> implementations can be added to the DI container.</param>
+        public static void AddBackgroundHandler(this ContainerBuilder builder, params Assembly[] handlerAssemblies)
         {
             builder.RegisterType<BackgroundActivationHandler>().AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(handlerAssemblies).AssignableTo<IBackgroundService>().AsImplementedInterfaces();
         }
     }
 }
