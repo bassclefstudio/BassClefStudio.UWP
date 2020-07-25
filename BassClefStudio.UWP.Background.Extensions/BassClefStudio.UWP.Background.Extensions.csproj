@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F2FFDCD-3AE4-4695-A63F-C657FD713FB6}</ProjectGuid>
+    <ProjectGuid>{77FA3718-E9C7-451B-A281-14F1BFEDCAE7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BassClefStudio.UWP.Lifecycle</RootNamespace>
-    <AssemblyName>BassClefStudio.UWP.Lifecycle</AssemblyName>
+    <RootNamespace>BassClefStudio.UWP.Background.Extensions</RootNamespace>
+    <AssemblyName>BassClefStudio.UWP.Background.Extensions</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -120,18 +120,33 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ILifecycleHandler.cs" />
-    <Compile Include="Application.cs" />
+    <Compile Include="AppServiceActivationHandler.cs" />
+    <Compile Include="BackgroundBuilderExtensions.cs" />
+    <Compile Include="BackgroundServiceActivationHandler.cs" />
+    <Compile Include="BackgroundServiceInitializationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\BassClefStudio.UWP.Lifecycle.rd.xml" />
+    <EmbeddedResource Include="Properties\BassClefStudio.UWP.Background.Extensions.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
       <Version>4.9.4</Version>
     </PackageReference>
+    <PackageReference Include="BassClefStudio.NET.Core">
+      <Version>1.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.csproj">
+      <Project>{9811f019-f103-42b8-91ae-9dbf0787e6eb}</Project>
+      <Name>BassClefStudio.UWP.Background</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BassClefStudio.UWP.Lifecycle\BassClefStudio.UWP.Lifecycle.csproj">
+      <Project>{0f2ffdcd-3ae4-4695-a63f-c657fd713fb6}</Project>
+      <Name>BassClefStudio.UWP.Lifecycle</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

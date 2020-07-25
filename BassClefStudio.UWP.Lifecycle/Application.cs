@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using BassClefStudio.NET.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +33,12 @@ namespace BassClefStudio.UWP.Lifecycle
             ContainerBuilder builder = new ContainerBuilder();
             BuildContainer(builder);
             LifecycleContainer = builder.Build();
+
+            var initHandlers = LifecycleContainer.Resolve<IEnumerable<IInitializationHandler>>();
+            foreach (var handler in initHandlers.Where(h => h.Enabled))
+            {
+                handler.Initialize(this);
+            }
         }
 
         /// <summary>
@@ -100,20 +105,11 @@ namespace BassClefStudio.UWP.Lifecycle
 
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
-            var deferral = args.TaskInstance.GetDeferral();
-            var toRun = new SynchronousTask(() => BackgroundActivated(args, deferral));
-            toRun.RunTask();
-        }
-
-        private async Task BackgroundActivated(BackgroundActivatedEventArgs args, BackgroundTaskDeferral deferral)
-        {
             var backgroundHandlers = LifecycleContainer.Resolve<IEnumerable<IBackgroundActivationHandler>>();
             foreach (var handler in backgroundHandlers.Where(h => h.Enabled))
             {
-                await handler.BackgroundActivated(this, args);
+                handler.BackgroundActivated(this, args);
             }
-
-            deferral.Complete();
         }
 
         #endregion

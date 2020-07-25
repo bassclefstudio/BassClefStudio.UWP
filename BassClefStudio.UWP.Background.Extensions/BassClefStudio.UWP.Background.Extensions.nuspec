@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>BassClefStudio.UWP.Background</id>
+    <id>BassClefStudio.UWP.Background.Extensions</id>
     <version>1.1.0</version>
-    <title>BassClefStudio.UWP.Background</title>
+    <title>BassClefStudio.UWP.Background.Extensions</title>
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
-    <description>Contains classes for managing background services in a UWP application.</description>
+    <description>Provides services for using BassClefStudio.UWP.Background in a BassClefStudio.UWP.Lifecycle-managed Application.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>
+        <dependency id="BassClefStudio.NET.Core" version="1.0.0"/>
+        <dependency id="BassClefStudio.UWP.Background" version="1.1.0"/>
+        <dependency id="BassClefStudio.UWP.Lifecycle" version="1.1.0"/>
+        <dependency id="Autofac" version="4.9.4"/>
       </group>
     </dependencies>
   </metadata>

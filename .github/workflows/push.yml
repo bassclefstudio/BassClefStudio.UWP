@@ -24,6 +24,7 @@ jobs:
       run: |
         nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.nuspec
         nuget pack .\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.nuspec
+        nuget pack .\BassClefStudio.UWP.Background.Extensions\BassClefStudio.UWP.Background.Extensions.nuspec
         nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.nuspec
         nuget pack .\BassClefStudio.UWP.Navigation.Extensions\BassClefStudio.UWP.Navigation.Extensions.nuspec
         nuget pack .\BassClefStudio.UWP.Lifecycle\BassClefStudio.UWP.Lifecycle.nuspec

@@ -71,6 +71,9 @@ namespace BassClefStudio.UWP.Navigation.Extensions
 
     public static class NavigationBuilderExtensions
     {
+        /// <summary>
+        /// Adds the <see cref="NavigationServiceHandler"/> to the <see cref="Lifecycle.Application"/> DI container, allowing for an app to use the <see cref="NavigationService"/> for navigation.
+        /// </summary>
         public static void AddNavigationService(this ContainerBuilder builder)
         {
             builder.RegisterType<NavigationServiceHandler>().AsImplementedInterfaces();
