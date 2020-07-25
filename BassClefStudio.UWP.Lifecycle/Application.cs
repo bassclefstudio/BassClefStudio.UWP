@@ -13,6 +13,8 @@ namespace BassClefStudio.UWP.Lifecycle
 {
     public abstract class Application : Windows.UI.Xaml.Application
     {
+        #region Initialiation
+
         /// <summary>
         /// The Autofac <see cref="IContainer"/> for resolving <see cref="ILifecycleHandler"/> objects in the <see cref="Application"/>.
         /// </summary>
@@ -27,7 +29,6 @@ namespace BassClefStudio.UWP.Lifecycle
         {
             ////Register system events
             this.Suspending += OnSuspending;
-            SystemNavigationManager.GetForCurrentView().BackRequested += BackRequested;
             
             //// Create container.
             ContainerBuilder builder = new ContainerBuilder();
@@ -41,12 +42,30 @@ namespace BassClefStudio.UWP.Lifecycle
         /// <param name="builder">The Autofac <see cref="ContainerBuilder"/> used to build the <see cref="IContainer"/>.</param>
         public abstract void BuildContainer(ContainerBuilder builder);
 
+        private bool backHandled = false;
+        /// <summary>
+        /// Initializes the back navigation event, which the <see cref="IBackHandler"/> uses to handle the back navigation system button.
+        /// </summary>
+        public void InitializeBackNavigation()
+        {
+            if(backHandled)
+            {
+                SystemNavigationManager.GetForCurrentView().BackRequested -= BackRequested;
+            }
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += BackRequested;
+            backHandled = true;
+        }
+
+        #endregion
+        #region Events
+
         private void BackRequested(object sender, BackRequestedEventArgs e)
         {
             var backHandlers = LifecycleContainer.Resolve<IEnumerable<IBackHandler>>();
             foreach (var handler in backHandlers.Where(h => h.Enabled))
             {
-                handler.BackRequested();
+                handler.BackRequested(this);
             }
         }
 
@@ -55,7 +74,7 @@ namespace BassClefStudio.UWP.Lifecycle
             var suspendHandlers = LifecycleContainer.Resolve<IEnumerable<ISuspendingHandler>>();
             foreach (var handler in suspendHandlers.Where(h => h.Enabled))
             {
-                handler.OnSuspending();
+                handler.OnSuspending(this);
             }
         }
 
@@ -64,7 +83,7 @@ namespace BassClefStudio.UWP.Lifecycle
             var foregroundHandlers = LifecycleContainer.Resolve<IEnumerable<IForegroundActivationHandler>>();
             foreach (var handler in foregroundHandlers.Where(h => h.Enabled))
             {
-                handler.ForegroundActivated(args);
+                handler.ForegroundActivated(this, args);
             }
         }
 
@@ -73,7 +92,7 @@ namespace BassClefStudio.UWP.Lifecycle
             var foregroundHandlers = LifecycleContainer.Resolve<IEnumerable<IForegroundActivationHandler>>();
             foreach (var handler in foregroundHandlers.Where(h => h.Enabled))
             {
-                handler.ForegroundActivated(args);
+                handler.ForegroundActivated(this, args);
             }
         }
 
@@ -89,10 +108,17 @@ namespace BassClefStudio.UWP.Lifecycle
             var backgroundHandlers = LifecycleContainer.Resolve<IEnumerable<IBackgroundActivationHandler>>();
             foreach (var handler in backgroundHandlers.Where(h => h.Enabled))
             {
-                await handler.BackgroundActivated(args);
+                await handler.BackgroundActivated(this, args);
             }
 
             deferral.Complete();
         }
+
+        #endregion
+        #region Methods
+
+        
+
+        #endregion
     }
 }
