@@ -9,7 +9,7 @@ namespace BassClefStudio.UWP.Background.AppServices
     /// <summary>
     /// Represents a service that can handle app service requests with a specified command name.
     /// </summary>
-    public abstract class CommandAppServiceHandler : IAppServiceHandler
+    public abstract class CommandAppService : IAppService
     {
         /// <summary>
         /// The name of the command that activates this <see cref="AppServiceHandler"/>.

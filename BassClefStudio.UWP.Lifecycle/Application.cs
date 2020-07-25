@@ -106,20 +106,11 @@ namespace BassClefStudio.UWP.Lifecycle
 
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
-            var deferral = args.TaskInstance.GetDeferral();
-            var toRun = new SynchronousTask(() => BackgroundActivated(args, deferral));
-            toRun.RunTask();
-        }
-
-        private async Task BackgroundActivated(BackgroundActivatedEventArgs args, BackgroundTaskDeferral deferral)
-        {
             var backgroundHandlers = LifecycleContainer.Resolve<IEnumerable<IBackgroundActivationHandler>>();
             foreach (var handler in backgroundHandlers.Where(h => h.Enabled))
             {
-                await handler.BackgroundActivated(this, args);
+                handler.BackgroundActivated(this, args);
             }
-
-            deferral.Complete();
         }
 
         #endregion

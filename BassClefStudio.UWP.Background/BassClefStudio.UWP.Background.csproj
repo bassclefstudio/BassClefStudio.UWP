@@ -120,11 +120,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AppServices\CommandAppServiceHandler.cs" />
+    <Compile Include="AppServices\CommandAppService.cs" />
     <Compile Include="AppServices\AppServiceInput.cs" />
     <Compile Include="AppServices\AppServiceOutput.cs" />
     <Compile Include="Tasks\BackgroundService.cs" />
-    <Compile Include="AppServices\IAppServiceHandler.cs" />
+    <Compile Include="AppServices\IAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\IBackgroundService.cs" />
     <EmbeddedResource Include="Properties\BassClefStudio.UWP.Background.rd.xml" />

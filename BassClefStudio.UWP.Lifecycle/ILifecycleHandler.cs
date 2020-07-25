@@ -87,7 +87,7 @@ namespace BassClefStudio.UWP.Lifecycle
         /// <param name="app">The app's <see cref="Application"/> object.</param>
         /// <param name="args">The <see cref="BackgroundActivatedEventArgs"/> which describe the background activation.</param>
         /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
-        Task<bool> BackgroundActivated(Application app, BackgroundActivatedEventArgs args);
+        bool BackgroundActivated(Application app, BackgroundActivatedEventArgs args);
     }
 
     /// <summary>

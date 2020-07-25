@@ -9,10 +9,10 @@ namespace BassClefStudio.UWP.Background.AppServices
     /// <summary>
     /// Represents a service which can handle an app service request from another application.
     /// </summary>
-    public interface IAppServiceHandler
+    public interface IAppService
     {
         /// <summary>
-        /// Returns a <see cref="bool"/> indicating whether the given <see cref="IAppServiceHandler"/> can handle the given <see cref="AppServiceInput"/>.
+        /// Returns a <see cref="bool"/> indicating whether the given <see cref="IAppService"/> can handle the given <see cref="AppServiceInput"/>.
         /// </summary>
         /// <param name="input">The <see cref="AppServiceInput"/> sent from another application.</param>
         bool CanExecute(AppServiceInput input);

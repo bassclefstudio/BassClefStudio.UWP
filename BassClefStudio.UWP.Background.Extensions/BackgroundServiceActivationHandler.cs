@@ -1,8 +1,11 @@
-﻿using BassClefStudio.UWP.Background.Tasks;
+﻿using BassClefStudio.NET.Core;
+using BassClefStudio.UWP.Background.Tasks;
 using BassClefStudio.UWP.Lifecycle;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 
 namespace BassClefStudio.UWP.Background.Extensions
 {
@@ -23,7 +26,7 @@ namespace BassClefStudio.UWP.Background.Extensions
         }
 
         /// <inheritdoc/>
-        public async Task<bool> BackgroundActivated(Application app, BackgroundActivatedEventArgs args)
+        public bool BackgroundActivated(Application app, BackgroundActivatedEventArgs args)
         {
             if(args.TaskInstance.TriggerDetails == null)
             {
@@ -31,7 +34,8 @@ namespace BassClefStudio.UWP.Background.Extensions
                 
                 if(task != null)
                 {
-                    await task.RunAsync(args.TaskInstance);
+                    var toRun = new SynchronousTask(() => RunBackgroundTask(task, args.TaskInstance, args.TaskInstance.GetDeferral()));
+                    toRun.RunTask();
                     return true;
                 }
                 else
@@ -42,6 +46,22 @@ namespace BassClefStudio.UWP.Background.Extensions
             else
             {
                 return false;
+            }
+        }
+
+        private async Task RunBackgroundTask(IBackgroundService backgroundService, IBackgroundTaskInstance taskInstance, BackgroundTaskDeferral deferral)
+        {
+            try
+            {
+                await backgroundService.RunAsync(taskInstance);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                deferral.Complete();
             }
         }
     }
