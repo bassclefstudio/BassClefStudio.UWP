@@ -120,8 +120,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BackgroundActivationHandler.cs" />
-    <Compile Include="BackgroundInitiailzationHandler.cs" />
+    <Compile Include="BackgroundBuilderExtensions.cs" />
+    <Compile Include="BackgroundServiceActivationHandler.cs" />
+    <Compile Include="BackgroundServiceInitializationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\BassClefStudio.UWP.Background.Extensions.rd.xml" />
   </ItemGroup>

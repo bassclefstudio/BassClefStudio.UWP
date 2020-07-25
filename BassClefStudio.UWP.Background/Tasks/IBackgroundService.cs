@@ -13,6 +13,11 @@ namespace BassClefStudio.UWP.Background.Tasks
     public interface IBackgroundService
     {
         /// <summary>
+        /// The referencable name of the <see cref="IBackgroundService"/>.
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         /// The attached <see cref="IBackgroundTaskRegistration"/> registered to the system.
         /// </summary>
         IBackgroundTaskRegistration Registration { get; }
@@ -48,8 +53,15 @@ namespace BassClefStudio.UWP.Background.Tasks
         /// </summary>
         /// <param name="taskInstance">The <see cref="IBackgroundTaskInstance"/> to handle.</param>
         public static IBackgroundService GetBackgroundHandler(this IEnumerable<IBackgroundService> handlers, IBackgroundTaskInstance taskInstance)
+            => handlers.GetBackgroundHandler(taskInstance.Task);
+
+        /// <summary>
+        /// Gets the <see cref="IBackgroundService"/> from a collection of <see cref="IBackgroundService"/>s that handles the given <see cref="IBackgroundTaskRegistration"/>.
+        /// </summary>
+        /// <param name="taskRegistration">The <see cref="IBackgroundTaskRegistration"/> to handle.</param>
+        public static IBackgroundService GetBackgroundHandler(this IEnumerable<IBackgroundService> handlers, IBackgroundTaskRegistration taskRegistration)
         {
-            return handlers.FirstOrDefault(h => h.Registration == taskInstance.Task);
+            return handlers.FirstOrDefault(h => h.Name == taskRegistration.Name);
         }
     }
 }

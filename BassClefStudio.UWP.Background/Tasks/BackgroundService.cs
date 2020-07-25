@@ -14,9 +14,7 @@ namespace BassClefStudio.UWP.Background.Tasks
     {
         #region Properties
 
-        /// <summary>
-        /// The referencable name of the <see cref="BackgroundService"/>.
-        /// </summary>
+        /// <inheritdoc/>
         public string Name { get; }
         
         /// <summary>
