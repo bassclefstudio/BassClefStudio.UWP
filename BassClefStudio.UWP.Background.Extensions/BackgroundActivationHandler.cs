@@ -1,4 +1,5 @@
-﻿using BassClefStudio.UWP.Lifecycle;
+﻿using Autofac;
+using BassClefStudio.UWP.Lifecycle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,9 @@ using Windows.ApplicationModel.Activation;
 
 namespace BassClefStudio.UWP.Background.Extensions
 {
+    /// <summary>
+    /// An <see cref="IBackgroundActivationHandler"/> using the <see cref="BackgroundHandler"/> for the core background task management logic.
+    /// </summary>
     public class BackgroundActivationHandler : IBackgroundActivationHandler
     {
         /// <inheritdoc/>
@@ -40,6 +44,14 @@ namespace BassClefStudio.UWP.Background.Extensions
             {
                 return false;
             }
+        }
+    }
+
+    public static class BackgroundBuilderExtensions
+    {
+        public static void AddNavigationService(this ContainerBuilder builder)
+        {
+            builder.RegisterType<BackgroundActivationHandler>().AsImplementedInterfaces();
         }
     }
 }
