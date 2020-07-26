@@ -53,12 +53,11 @@ namespace BassClefStudio.UWP.Lifecycle
         /// </summary>
         public void InitializeBackNavigation()
         {
-            if(backHandled)
+            if(!backHandled)
             {
-                SystemNavigationManager.GetForCurrentView().BackRequested -= BackRequested;
+                SystemNavigationManager.GetForCurrentView().BackRequested += BackRequested;
             }
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += BackRequested;
             backHandled = true;
         }
 
@@ -67,12 +66,8 @@ namespace BassClefStudio.UWP.Lifecycle
 
         private void BackRequested(object sender, BackRequestedEventArgs e)
         {
-            var backHandlers = LifecycleContainer.Resolve<IEnumerable<IBackHandler>>();
-            foreach (var handler in backHandlers.Where(h => h.Enabled))
-            {
-                handler.BackRequested(this);
-            }
-
+            var backHandler = LifecycleContainer.Resolve<IBackHandler>();
+            backHandler.BackRequested(this);
             e.Handled = true;
         }
 
