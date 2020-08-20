@@ -1,4 +1,4 @@
-# BassClefStudio.UWP
+# UWP-Libraries
 ![UWP Build and Pack](https://github.com/bassclefstudio/UWP-Libraries/workflows/UWP%20Build%20and%20Pack/badge.svg)
 
 A collection of UWP libraries for use in all types of UWP .NET projects.
