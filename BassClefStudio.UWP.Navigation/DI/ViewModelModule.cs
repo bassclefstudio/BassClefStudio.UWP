@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using BassClefStudio.UWP.Navigation.Shell;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -9,20 +10,20 @@ namespace BassClefStudio.UWP.Navigation.DI
     /// <summary>
     /// The registration module for view-models and associated types, used for DI in the <see cref="NavigationService"/>.
     /// </summary>
-    public class ModuleRegistration : Autofac.Module
+    public class ViewModelModule : Autofac.Module
     {
         /// <summary>
-        /// The <see cref="Assembly"/> containing the view-models.
+        /// A collection of <see cref="Assembly"/> objects containing the view-models.
         /// </summary>
-        public Assembly ViewModelAssembly { get; }
+        public Assembly[] ViewModelAssemblies { get; }
 
         /// <summary>
-        /// Creates a new <see cref="ModuleRegistration"/> given an <see cref="Assembly"/> containing various <see cref="IViewModel"/>s.
+        /// Creates a new <see cref="ViewModelModule"/> given a collection of <see cref="Assembly"/> objects containing <see cref="IViewModel"/>s.
         /// </summary>
-        /// <param name="viewModelAssembly">The <see cref="Assembly"/> containing the view-models.</param>
-        public ModuleRegistration(Assembly viewModelAssembly)
+        /// <param name="viewModelAssembly">A collection of <see cref="Assembly"/> objects containing the view-models.</param>
+        public ViewModelModule(Assembly[] viewModelAssemblies)
         {
-            ViewModelAssembly = viewModelAssembly;
+            ViewModelAssemblies = viewModelAssemblies;
         }
 
         /// <inheritdoc/>
@@ -31,10 +32,9 @@ namespace BassClefStudio.UWP.Navigation.DI
             base.Load(builder);
 
             //// Register all IViewModel implementations
-            builder.RegisterTypes(
-                ViewModelAssembly
-                    .GetTypes()
-                    .Where(t => typeof(IViewModel).IsAssignableFrom(t)).ToArray());
+            builder.RegisterAssemblyTypes(ViewModelAssemblies)
+                .AssignableTo<IViewModel>()
+                .AsImplementedInterfaces();
 
             //// Register current ContinuablePage instance
             builder.Register(p => NavigationService.Frame.Content as ContinuablePage).As<ContinuablePage>();

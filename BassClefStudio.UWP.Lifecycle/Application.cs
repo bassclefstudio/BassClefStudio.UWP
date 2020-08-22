@@ -34,6 +34,7 @@ namespace BassClefStudio.UWP.Lifecycle
             BuildContainer(builder);
             LifecycleContainer = builder.Build();
 
+            //// Get initialization handlers.
             var initHandlers = LifecycleContainer.Resolve<IEnumerable<IInitializationHandler>>();
             foreach (var handler in initHandlers.Where(h => h.Enabled))
             {

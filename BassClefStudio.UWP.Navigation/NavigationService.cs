@@ -256,21 +256,11 @@ namespace BassClefStudio.UWP.Navigation
         /// <summary>
         /// Initializes the <see cref="Container"/> to get view-models from the given assemblies.
         /// </summary>
-        /// <param name="viewModelAssemblyType">The <see cref="Assembly"/> containing the view-models.</param>
-        /// <param name="modules">Any additional <see cref="Autofac.Module"/>s to add to the view-model DI <see cref="IContainer"/>.</param>
-        public static void InitializeContainer(Assembly viewModelAssembly, IEnumerable<Autofac.Module> modules)
+        /// <param name="buildAction">An <see cref="Action"/> which is run by the <see cref="NavigationService"/> to build the <see cref="Container"/> for view-model resolution, etc.</param>
+        public static void InitializeContainer(Action<ContainerBuilder> buildAction)
         {
             var builder = new ContainerBuilder();
-
-            // Use module defined in this assembly to register types.
-            builder.RegisterModule(new ModuleRegistration(viewModelAssembly));
-
-            foreach (var module in modules)
-            {
-                // Use additional modules to register additional capabilities to the DI container.
-                builder.RegisterModule(module);
-            }
-
+            buildAction(builder);
             Container = builder.Build();
         }
 
