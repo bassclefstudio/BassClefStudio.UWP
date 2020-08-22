@@ -254,7 +254,7 @@ namespace BassClefStudio.UWP.Navigation
         }
 
         /// <summary>
-        /// Initializes the <see cref="Container"/> to get view-models from the given assemblies.
+        /// Initializes the <see cref="Container"/> with view-models, services, and other related items.
         /// </summary>
         /// <param name="buildAction">An <see cref="Action"/> which is run by the <see cref="NavigationService"/> to build the <see cref="Container"/> for view-model resolution, etc.</param>
         public static void InitializeContainer(Action<ContainerBuilder> buildAction)
