@@ -254,23 +254,21 @@ namespace BassClefStudio.UWP.Navigation
         }
 
         /// <summary>
-        /// Initializes the <see cref="Container"/> to get view-models from the given assemblies
+        /// Initializes the <see cref="Container"/> to get view-models from the given assemblies.
         /// </summary>
         /// <param name="viewModelAssemblyType">The <see cref="Assembly"/> containing the view-models.</param>
-        /// <param name="assembliesWithModules">Any additional <see cref="Assembly"/> objects with <see cref="Autofac.Module"/>s.</param>
-        public static void InitializeContainer(Assembly viewModelAssembly, Assembly[] assembliesWithModules)
+        /// <param name="modules">Any additional <see cref="Autofac.Module"/>s to add to the view-model DI <see cref="IContainer"/>.</param>
+        public static void InitializeContainer(Assembly viewModelAssembly, IEnumerable<Autofac.Module> modules)
         {
             var builder = new ContainerBuilder();
 
-            ModuleRegistration.ViewModelAssembly = viewModelAssembly;
+            // Use module defined in this assembly to register types.
+            builder.RegisterModule(new ModuleRegistration(viewModelAssembly));
 
-            // Use modules defined in this assembly to register types.
-            builder.RegisterAssemblyModules(typeof(NavigationService).GetTypeInfo().Assembly);
-
-            foreach (var assembly in assembliesWithModules)
+            foreach (var module in modules)
             {
-                // Use modules defined in this assembly to register types.
-                builder.RegisterAssemblyModules(assembly);
+                // Use additional modules to register additional capabilities to the DI container.
+                builder.RegisterModule(module);
             }
 
             Container = builder.Build();

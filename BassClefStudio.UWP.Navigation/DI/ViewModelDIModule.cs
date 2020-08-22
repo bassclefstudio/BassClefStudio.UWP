@@ -14,7 +14,16 @@ namespace BassClefStudio.UWP.Navigation.DI
         /// <summary>
         /// The <see cref="Assembly"/> containing the view-models.
         /// </summary>
-        public static Assembly ViewModelAssembly { get; set; }
+        public Assembly ViewModelAssembly { get; }
+
+        /// <summary>
+        /// Creates a new <see cref="ModuleRegistration"/> given an <see cref="Assembly"/> containing various <see cref="IViewModel"/>s.
+        /// </summary>
+        /// <param name="viewModelAssembly">The <see cref="Assembly"/> containing the view-models.</param>
+        public ModuleRegistration(Assembly viewModelAssembly)
+        {
+            ViewModelAssembly = viewModelAssembly;
+        }
 
         /// <inheritdoc/>
         protected override void Load(ContainerBuilder builder)
