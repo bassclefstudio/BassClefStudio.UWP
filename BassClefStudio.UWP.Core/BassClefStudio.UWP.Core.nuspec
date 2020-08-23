@@ -7,7 +7,7 @@
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
     <description>Contains helper classes, services, and extension methods for creating UWP projects.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
