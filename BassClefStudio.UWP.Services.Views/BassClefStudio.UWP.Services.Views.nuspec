@@ -7,7 +7,7 @@
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
     <description>Provides services for managing the views and chrome of app windows, such as title chrome and status bars.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
