@@ -2,13 +2,13 @@
 <package>
   <metadata>
     <id>BassClefStudio.UWP.Services.AppList</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>BassClefStudio.UWP.Services.AppList</title>
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
-    <description>Provides services for retreiving package information of installed apps on a system, and for interacting with these installed apps.</description>
+    <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
+    <description>Provides services for managing and iterating through a user's installed applications.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>

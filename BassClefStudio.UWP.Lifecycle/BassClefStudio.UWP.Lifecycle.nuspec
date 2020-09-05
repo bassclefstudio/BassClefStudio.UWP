@@ -2,12 +2,12 @@
 <package>
   <metadata>
     <id>BassClefStudio.UWP.Lifecycle</id>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <title>BassClefStudio.UWP.Lifecycle</title>
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
     <description>Provides interfaces for interacting with application lifecycle events through lifecycle services.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">

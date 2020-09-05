@@ -2,12 +2,12 @@
 <package>
   <metadata>
     <id>BassClefStudio.UWP.Background</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>BassClefStudio.UWP.Background</title>
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
     <description>Contains classes for managing background services in a UWP application.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
