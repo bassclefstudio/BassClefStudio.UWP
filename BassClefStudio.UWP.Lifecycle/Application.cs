@@ -10,6 +10,9 @@ using Windows.UI.Core;
 
 namespace BassClefStudio.UWP.Lifecycle
 {
+    /// <summary>
+    /// A wrapper class over the <see cref="Windows.UI.Xaml.Application"/>, this class provides a dependency-injection-driven way to create services, add navigation, and support application lifecyle in a UWP project, similarly to the way in which other .NET projects (such as ASP.NET Core) function.
+    /// </summary>
     public abstract class Application : Windows.UI.Xaml.Application
     {
         #region Initialiation
