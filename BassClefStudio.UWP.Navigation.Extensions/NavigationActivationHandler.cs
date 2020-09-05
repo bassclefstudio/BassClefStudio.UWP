@@ -9,7 +9,7 @@ using Windows.ApplicationModel.Activation;
 namespace BassClefStudio.UWP.Navigation.Extensions
 {
     /// <summary>
-    /// Represents a basic <see cref="IForegroundActivationHandler"/> that 
+    /// An abstract <see cref="IForegroundActivationHandler"/> that can provide an <see cref="INavigationHandler"/> to start navigation based on received <see cref="IActivatedEventArgs"/>.
     /// </summary>
     public abstract class NavigationActivationHandler<T> : IForegroundActivationHandler where T : IActivatedEventArgs
     {

@@ -28,7 +28,7 @@ namespace BassClefStudio.UWP.Navigation.Extensions
         }
 
         /// <inheritdoc/>
-        public bool ActivateWindow(Lifecycle.Application app, Type pageType, object parameter, Type shellPageType = null)
+        public bool ActivateWindow(Lifecycle.Application app, Type pageType, object parameter = null, Type shellPageType = null)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -36,25 +36,24 @@ namespace BassClefStudio.UWP.Navigation.Extensions
             //// just ensure that the window is active
             if (rootFrame == null)
             {
-                //// Create a Frame to act as the navigation context and navigate to the first page
+                //// Create a Frame to act as the navigation context.
                 rootFrame = new Frame();
-
-                rootFrame.Content = new Frame();
-                NavigationService.Frame = rootFrame;
-
-                //// Navigate to the page...
-                if(shellPageType != null)
-                {
-                    NavigationService.Navigate(shellPageType);
-                }
-
-                NavigationService.Navigate(pageType, parameter);
+                Window.Current.Content = rootFrame;
             }
+
+            NavigationService.Frame = rootFrame;
 
             //// Ensure the current window is active, and then setup back navigation.
             Window.Current.Activate();
             app.InitializeBackNavigation();
 
+            //// Navigate to the page...
+            if (shellPageType != null)
+            {
+                NavigationService.Navigate(shellPageType);
+            }
+
+            NavigationService.Navigate(pageType, parameter);
             return true;
         }
 
