@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,6 +19,9 @@ namespace BassClefStudio.UWP.Navigation.Extensions
         /// <inheritdoc/>
         public bool Enabled { get; }
 
+        /// <summary>
+        /// Creates a new <see cref="NavigationServiceHandler"/>.
+        /// </summary>
         public NavigationServiceHandler()
         {
             Enabled = true;
@@ -72,7 +76,7 @@ namespace BassClefStudio.UWP.Navigation.Extensions
     public static class NavigationBuilderExtensions
     {
         /// <summary>
-        /// Adds the <see cref="NavigationServiceHandler"/> to the <see cref="Lifecycle.Application"/> DI container, allowing for an app to use the <see cref="NavigationService"/> for navigation.
+        /// Adds the <see cref="NavigationServiceHandler"/> to the <see cref="Lifecycle.Application"/> DI container, allowing for an app to use the <see cref="NavigationService"/> for navigation. In order to use this service, a <see cref="IForegroundActivationHandler"/> must be registered to call an <see cref="Lifecycle.Application"/>'s <see cref="INavigationHandler"/> with the given start page and information.
         /// </summary>
         public static void AddNavigationService(this ContainerBuilder builder)
         {
