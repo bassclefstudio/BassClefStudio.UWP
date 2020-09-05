@@ -17,4 +17,7 @@
       </group>
     </dependencies>
   </metadata>
+  <files>
+    <file src="MasterDetails\MasterDetailsView.xaml" target="lib\uap10.0.15063\MasterDetails"/>
+  </files>
 </package>
