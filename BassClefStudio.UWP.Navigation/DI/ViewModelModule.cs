@@ -20,7 +20,7 @@ namespace BassClefStudio.UWP.Navigation.DI
         /// <summary>
         /// Creates a new <see cref="ViewModelModule"/> given a collection of <see cref="Assembly"/> objects containing <see cref="IViewModel"/>s.
         /// </summary>
-        /// <param name="viewModelAssembly">A collection of <see cref="Assembly"/> objects containing the view-models.</param>
+        /// <param name="viewModelAssemblies">A collection of <see cref="Assembly"/> objects containing the view-models.</param>
         public ViewModelModule(Assembly[] viewModelAssemblies)
         {
             ViewModelAssemblies = viewModelAssemblies;
@@ -29,8 +29,6 @@ namespace BassClefStudio.UWP.Navigation.DI
         /// <inheritdoc/>
         protected override void Load(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             //// Register all IViewModel implementations
             builder.RegisterAssemblyTypes(ViewModelAssemblies)
                 .AssignableTo<IViewModel>()
