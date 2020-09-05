@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>BassClefStudio.UWP.Services.AppList</id>
+    <version>1.0.0</version>
+    <title>BassClefStudio.UWP.Services.AppList</title>
+    <authors>BassClefStudio</authors>
+    <owners>BassClefStudio</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <description>Provides services for retreiving package information of installed apps on a system, and for interacting with these installed apps.</description>
+    <dependencies>
+      <group targetFramework="uap10.0.15063">
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>
+        <dependency id="BassClefStudio.NET.Core" version="1.2.1"/>
+        <dependency id="Autofac" version="4.9.4"/>
+      </group>
+    </dependencies>
+  </metadata>
+</package>
