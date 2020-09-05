@@ -23,6 +23,7 @@ jobs:
     - name: Nuget Pack
       run: |
         nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.csproj
+        nuget pack .\BassClefStudio.UWP.Controls\BassClefStudio.UWP.Controls.csproj
         nuget pack .\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.csproj
         nuget pack .\BassClefStudio.UWP.Background.Extensions\BassClefStudio.UWP.Background.Extensions.csproj
         nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.csproj
