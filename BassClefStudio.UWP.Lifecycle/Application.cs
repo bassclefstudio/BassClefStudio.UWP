@@ -27,6 +27,9 @@ namespace BassClefStudio.UWP.Lifecycle
         /// </summary>
         public static new Application Current => (Application)Windows.UI.Xaml.Application.Current;
 
+        /// <summary>
+        /// Creates a new <see cref="Application"/> object and initializes required resources.
+        /// </summary>
         public Application()
         {
             ////Register system events
@@ -84,6 +87,7 @@ namespace BassClefStudio.UWP.Lifecycle
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             var foregroundHandlers = LifecycleContainer.Resolve<IEnumerable<IForegroundActivationHandler>>();
@@ -93,6 +97,7 @@ namespace BassClefStudio.UWP.Lifecycle
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnActivated(IActivatedEventArgs args)
         {
             var foregroundHandlers = LifecycleContainer.Resolve<IEnumerable<IForegroundActivationHandler>>();
@@ -102,6 +107,7 @@ namespace BassClefStudio.UWP.Lifecycle
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
             var backgroundHandlers = LifecycleContainer.Resolve<IEnumerable<IBackgroundActivationHandler>>();
@@ -113,8 +119,6 @@ namespace BassClefStudio.UWP.Lifecycle
 
         #endregion
         #region Methods
-
-        
 
         #endregion
     }
