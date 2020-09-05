@@ -87,25 +87,23 @@ namespace BassClefStudio.UWP.Services.Views
     {
         private bool Showing = false;
 
-        private TitleBarService TitleService;
-        public TitleStatusBarService(TitleBarService titleBarService = null)
+        public TitleStatusBarService()
         {
-            TitleService = titleBarService ?? throw new ArgumentException("A TitleStatusBarService was attempted to be created, but no TitleBarService was provided.", "titleBarService");
         }
 
         private bool CanShow()
         {
-            return TitleService != null && TitleService.ProgressControl != null;
+            return TitleBarService.ProgressControl != null;
         }
 
         public void SetProgress(double? value = null)
         {
             if(CanShow() && Showing)
             {
-                TitleService.ProgressControl.IsIndeterminate = !value.HasValue;
+                TitleBarService.ProgressControl.IsIndeterminate = !value.HasValue;
                 if (value.HasValue)
                 {
-                    TitleService.ProgressControl.Value = value.Value;
+                    TitleBarService.ProgressControl.Value = value.Value;
                 }
             }
         }
@@ -116,7 +114,7 @@ namespace BassClefStudio.UWP.Services.Views
             {
                 await DispatcherService.RunOnUIThread(
                     () => {
-                        TitleService.ProgressControl.Visibility = Visibility.Visible;
+                        TitleBarService.ProgressControl.Visibility = Visibility.Visible;
                     });
                 Showing = true;
             }
@@ -130,7 +128,7 @@ namespace BassClefStudio.UWP.Services.Views
                 await DispatcherService.RunOnUIThread(
                         () =>
                         {
-                            TitleService.ProgressControl.Visibility = Visibility.Collapsed;
+                            TitleBarService.ProgressControl.Visibility = Visibility.Collapsed;
                         });
             }
         }
