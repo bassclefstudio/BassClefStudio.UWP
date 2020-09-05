@@ -38,6 +38,7 @@ namespace BassClefStudio.UWP.Navigation.Extensions
             {
                 //// Create a Frame to act as the navigation context.
                 rootFrame = new Frame();
+                Window.Current.Content = rootFrame;
             }
 
             NavigationService.Frame = rootFrame;
