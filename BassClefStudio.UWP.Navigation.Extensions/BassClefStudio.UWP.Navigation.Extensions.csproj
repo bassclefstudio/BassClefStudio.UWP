@@ -122,6 +122,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="NavigationActivationHandler.cs" />
     <Compile Include="NavigationServiceHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\BassClefStudio.Navigation.Extensions.rd.xml" />
