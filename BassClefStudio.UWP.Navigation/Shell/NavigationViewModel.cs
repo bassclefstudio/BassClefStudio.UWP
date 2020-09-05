@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace BassClefStudio.UWP.Navigation.Shell
@@ -108,11 +109,7 @@ namespace BassClefStudio.UWP.Navigation.Shell
         {
             NavigationPages.AddRange(pages);
             SettingsPage = settingsPage;
-
-            if (NavigationService.CurrentPageType != null)
-            {
-                Navigated(NavigationService.CurrentPageType);
-            }
+            (Windows.UI.Xaml.Window.Current.Content as Frame).BackStack.Clear();
         }
 
         /// <summary>
