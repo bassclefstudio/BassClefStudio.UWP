@@ -31,8 +31,7 @@ namespace BassClefStudio.UWP.Navigation.DI
         {
             //// Register all IViewModel implementations
             builder.RegisterAssemblyTypes(ViewModelAssemblies)
-                .AssignableTo<IViewModel>()
-                .AsImplementedInterfaces();
+                .AssignableTo<IViewModel>();
 
             //// Register current ContinuablePage instance
             builder.Register(p => NavigationService.Frame.Content as ContinuablePage).As<ContinuablePage>();
