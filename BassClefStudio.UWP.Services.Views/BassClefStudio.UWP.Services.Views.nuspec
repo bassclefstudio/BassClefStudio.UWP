@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>BassClefStudio.UWP.Services.Views</id>
+    <version>1.0.0</version>
+    <title>BassClefStudio.UWP.Services.Views</title>
+    <authors>BassClefStudio</authors>
+    <owners>BassClefStudio</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <description>Provides services for managing the views and chrome of app windows, such as title chrome and status bars.</description>
+    <dependencies>
+      <group targetFramework="uap10.0.15063">
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>
+		<dependency id="Mircosoft.UI.Xaml" version="2.4.2"/>
+        <dependency id="BassClefStudio.UWP.Core" version="1.0.1"/>
+        <dependency id="Autofac" version="4.9.4"/>
+      </group>
+    </dependencies>
+  </metadata>
+</package>

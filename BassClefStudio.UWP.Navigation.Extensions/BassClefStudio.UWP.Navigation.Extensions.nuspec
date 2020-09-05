@@ -2,18 +2,18 @@
 <package>
   <metadata>
     <id>BassClefStudio.UWP.Navigation.Extensions</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>BassClefStudio.UWP.Navigation.Extensions</title>
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <repository type="git" url="https://github.com/bassclefstudio/BassClefStudio.UWP"/>
+    <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
     <description>Provides services for using BassClefStudio.UWP.Navigation in a BassClefStudio.UWP.Lifecycle-managed Application.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>
-        <dependency id="BassClefStudio.UWP.Navigation" version="1.0.0"/>
-        <dependency id="BassClefStudio.UWP.Lifecycle" version="1.1.0"/>
+        <dependency id="BassClefStudio.UWP.Navigation" version="1.0.1"/>
+        <dependency id="BassClefStudio.UWP.Lifecycle" version="1.1.2"/>
         <dependency id="Autofac" version="4.9.4"/>
       </group>
     </dependencies>
