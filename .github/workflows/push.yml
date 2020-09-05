@@ -22,12 +22,12 @@ jobs:
       run: msbuild BassClefStudio.UWP.sln -t:build -p:Configuration=Debug -p:Platform="Any CPU" -m -restore
     - name: Nuget Pack
       run: |
-        nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.nuspec
-        nuget pack .\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.nuspec
-        nuget pack .\BassClefStudio.UWP.Background.Extensions\BassClefStudio.UWP.Background.Extensions.nuspec
-        nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.nuspec
-        nuget pack .\BassClefStudio.UWP.Navigation.Extensions\BassClefStudio.UWP.Navigation.Extensions.nuspec
-        nuget pack .\BassClefStudio.UWP.Lifecycle\BassClefStudio.UWP.Lifecycle.nuspec
-        nuget pack .\BassClefStudio.UWP.Services.AppList\BassClefStudio.UWP.Services.AppList.nuspec
+        nuget pack .\BassClefStudio.UWP.Core\BassClefStudio.UWP.Core.csproj
+        nuget pack .\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.csproj
+        nuget pack .\BassClefStudio.UWP.Background.Extensions\BassClefStudio.UWP.Background.Extensions.csproj
+        nuget pack .\BassClefStudio.UWP.Navigation\BassClefStudio.UWP.Navigation.csproj
+        nuget pack .\BassClefStudio.UWP.Navigation.Extensions\BassClefStudio.UWP.Navigation.Extensions.csproj
+        nuget pack .\BassClefStudio.UWP.Lifecycle\BassClefStudio.UWP.Lifecycle.csproj
+        nuget pack .\BassClefStudio.UWP.Services.AppList\BassClefStudio.UWP.Services.AppList.csproj
     - name: Nuget Push
       run: nuget push "*.nupkg" -Source "GPR" -SkipDuplicate -NoSymbols
