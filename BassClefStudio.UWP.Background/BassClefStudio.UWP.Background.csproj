@@ -122,6 +122,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AppServices\AppServiceVersion.cs" />
     <Compile Include="AppServices\CommandAppService.cs" />
     <Compile Include="AppServices\AppServiceInput.cs" />
     <Compile Include="AppServices\AppServiceOutput.cs" />

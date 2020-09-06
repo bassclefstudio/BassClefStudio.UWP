@@ -4,7 +4,7 @@ using Windows.Foundation.Collections;
 namespace BassClefStudio.UWP.Background.AppServices
 {
     /// <summary>
-    /// Represents the input to an app service managed by an <see cref="AppServiceHandler"/>.
+    /// Represents the input to an app service managed by an <see cref="IAppService"/>.
     /// </summary>
     public class AppServiceInput
     {
@@ -28,11 +28,11 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// </summary>
         /// <param name="commandName">The name of the command to execute.</param>
         /// <param name="inputs">A collection of <see cref="object"/> inputs, keyed by <see cref="string"/> names.</param>
-        public AppServiceInput(string commandName, Dictionary<string, object> inputs, int version)
+        public AppServiceInput(string commandName, Dictionary<string, object> inputs)
         {
             CommandName = commandName;
             InputParameters = inputs;
-            VersionNumber = version;
+            VersionNumber = AppServiceVersion.VersionNumber;
         }
 
         /// <summary>

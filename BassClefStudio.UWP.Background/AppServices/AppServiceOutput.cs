@@ -35,13 +35,13 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <summary>
         /// Creates a new <see cref="AppServiceOutput"/>.
         /// </summary>
-        /// <param name="sucess">A <see cref="bool"/> indicating whether the <see cref="AppServiceHandler"/>'s operation succeeded.</param>
+        /// <param name="sucess">A <see cref="bool"/> indicating whether the <see cref="IAppService"/>'s operation succeeded.</param>
         /// <param name="output">If applicable, the error message as a <see cref="string"/>.</param>
-        /// <param name="errorMessage">If applicable, the <see cref="object"/> sent from the <see cref="AppServiceHandler"/>.</param>
-        public AppServiceOutput(bool sucess, int version, object output = null, string errorMessage = null)
+        /// <param name="errorMessage">If applicable, the <see cref="object"/> sent from the <see cref="IAppService"/>.</param>
+        public AppServiceOutput(bool sucess, object output = null, string errorMessage = null)
         {
             Sucess = sucess;
-            VersionNumber = version;
+            VersionNumber = AppServiceVersion.VersionNumber;
             ErrorMessage = errorMessage;
             Output = output;
         }

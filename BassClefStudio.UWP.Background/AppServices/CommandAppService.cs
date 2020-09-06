@@ -12,7 +12,7 @@ namespace BassClefStudio.UWP.Background.AppServices
     public abstract class CommandAppService : IAppService
     {
         /// <summary>
-        /// The name of the command that activates this <see cref="AppServiceHandler"/>.
+        /// The name of the command that activates this <see cref="IAppService"/>.
         /// </summary>
         public string CommandName { get; }
 
@@ -33,17 +33,12 @@ namespace BassClefStudio.UWP.Background.AppServices
             try
             {
                 var r = await GetOutputInternal(input.InputParameters);
-                return new AppServiceOutput(true, VersionNumber, r);
+                return new AppServiceOutput(true, output: r);
             }
             catch(Exception ex)
             {
-                return new AppServiceOutput(false, VersionNumber, null, ex.ToString());
+                return new AppServiceOutput(false, errorMessage: ex.ToString());
             }
         }
-
-        /// <summary>
-        /// A constant <see cref="int"/> value that will be sent in app service requests as this apps <see cref="AppServiceHandler"/> version number.
-        /// </summary>
-        public const int VersionNumber = 1;
     }
 }
