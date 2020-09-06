@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BassClefStudio.UWP.Background.AppServices;
+using BassClefStudio.UWP.Background.AppServices.Core;
 using BassClefStudio.UWP.Background.Tasks;
 using System.Reflection;
 
@@ -13,9 +14,14 @@ namespace BassClefStudio.UWP.Background.Extensions
         /// <param name="serviceAssemblies">A collection of <see cref="Assembly"/> objects where <see cref="IBackgroundService"/> implementations can be added to the DI container.</param>
         public static void AddBackgroundServices(this ContainerBuilder builder, params Assembly[] serviceAssemblies)
         {
-            builder.RegisterType<BackgroundServiceActivationHandler>().AsImplementedInterfaces();
-            builder.RegisterType<BackgroundServiceInitializationHandler>().AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(serviceAssemblies).AssignableTo<IBackgroundService>().SingleInstance().AsImplementedInterfaces();
+            builder.RegisterType<BackgroundServiceActivationHandler>()
+                .AsImplementedInterfaces();
+            builder.RegisterType<BackgroundServiceInitializationHandler>()
+                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(serviceAssemblies)
+                .AssignableTo<IBackgroundService>()
+                .SingleInstance()
+                .AsImplementedInterfaces();
         }
 
         /// <summary>
@@ -24,8 +30,16 @@ namespace BassClefStudio.UWP.Background.Extensions
         /// <param name="serviceAssemblies">A collection of <see cref="Assembly"/> objects where <see cref="IAppService"/> implementations can be added to the DI container.</param>
         public static void AddAppServices(this ContainerBuilder builder, params Assembly[] serviceAssemblies)
         {
-            builder.RegisterType<AppServiceActivationHandler>().AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(serviceAssemblies).AssignableTo<IAppService>().SingleInstance().AsImplementedInterfaces();
+            builder.RegisterType<AppServiceActivationHandler>()
+                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(serviceAssemblies)
+                .AssignableTo<IAppService>()
+                .SingleInstance()
+                .AsImplementedInterfaces();
+            builder.RegisterType<HelpAppService>()
+                .SingleInstance()
+                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
+                .AsImplementedInterfaces();
         }
     }
 }

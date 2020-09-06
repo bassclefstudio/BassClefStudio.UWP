@@ -21,6 +21,9 @@ namespace BassClefStudio.UWP.Services.AppList
         /// <inheritdoc/>
         public ObservableCollection<AppPackage> Applications { get; }
 
+        /// <summary>
+        /// Creates a new <see cref="PackageManagerAppListProvider"/>.
+        /// </summary>
         public PackageManagerAppListProvider()
         {
             Applications = new ObservableCollection<AppPackage>();

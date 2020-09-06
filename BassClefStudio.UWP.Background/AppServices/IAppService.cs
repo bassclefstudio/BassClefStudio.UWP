@@ -12,6 +12,16 @@ namespace BassClefStudio.UWP.Background.AppServices
     public interface IAppService
     {
         /// <summary>
+        /// A display name for this <see cref="IAppService"/>.
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// A description of this <see cref="IAppService"/> and the actions it performs.
+        /// </summary>
+        string Description { get; }
+
+        /// <summary>
         /// Returns a <see cref="bool"/> indicating whether the given <see cref="IAppService"/> can handle the given <see cref="AppServiceInput"/>.
         /// </summary>
         /// <param name="input">The <see cref="AppServiceInput"/> sent from another application.</param>

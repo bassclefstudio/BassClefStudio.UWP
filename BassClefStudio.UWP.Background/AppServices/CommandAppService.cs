@@ -12,14 +12,33 @@ namespace BassClefStudio.UWP.Background.AppServices
     public abstract class CommandAppService : IAppService
     {
         /// <summary>
-        /// The name of the command that activates this <see cref="AppServiceHandler"/>.
+        /// The name of the command that activates this <see cref="IAppService"/>.
         /// </summary>
         public string CommandName { get; }
 
         /// <inheritdoc/>
+        public string Name { get; }
+
+        /// <inheritdoc/>
+        public string Description { get; }
+
+        /// <summary>
+        /// Creates a new <see cref="CommandAppService"/>.
+        /// </summary>
+        /// <param name="commandName">The name of the command that activates this <see cref="IAppService"/>.</param>
+        /// <param name="displayName">See <see cref="Name"/>.</param>
+        /// <param name="description">See <see cref="Description"/>.</param>
+        public CommandAppService(string commandName, string displayName, string description)
+        {
+            CommandName = commandName;
+            Name = displayName;
+            Description = description;
+        }
+
+        /// <inheritdoc/>
         public bool CanExecute(AppServiceInput input)
         {
-            return input.CommandName == CommandName;
+            return input.CommandName.Equals(CommandName, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -33,17 +52,12 @@ namespace BassClefStudio.UWP.Background.AppServices
             try
             {
                 var r = await GetOutputInternal(input.InputParameters);
-                return new AppServiceOutput(true, VersionNumber, r);
+                return new AppServiceOutput(true, output: r);
             }
             catch(Exception ex)
             {
-                return new AppServiceOutput(false, VersionNumber, null, ex.ToString());
+                return new AppServiceOutput(false, errorMessage: ex.ToString());
             }
         }
-
-        /// <summary>
-        /// A constant <see cref="int"/> value that will be sent in app service requests as this apps <see cref="AppServiceHandler"/> version number.
-        /// </summary>
-        public const int VersionNumber = 1;
     }
 }

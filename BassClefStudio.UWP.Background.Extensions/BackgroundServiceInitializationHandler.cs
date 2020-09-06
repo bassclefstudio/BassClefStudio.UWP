@@ -14,8 +14,15 @@ namespace BassClefStudio.UWP.Background.Extensions
         /// <inheritdoc/>
         public bool Enabled { get; }
 
+        /// <summary>
+        /// The collection of attached <see cref="IBackgroundService"/>s.
+        /// </summary>
         public IEnumerable<IBackgroundService> BackgroundServices { get; }
 
+        /// <summary>
+        /// Creates anew <see cref="BackgroundServiceInitializationHandler"/>.
+        /// </summary>
+        /// <param name="backgroundServices">The collection of attached <see cref="IBackgroundService"/>s.</param>
         public BackgroundServiceInitializationHandler(IEnumerable<IBackgroundService> backgroundServices)
         {
             BackgroundServices = backgroundServices;
