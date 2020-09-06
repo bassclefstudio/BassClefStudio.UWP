@@ -13,7 +13,7 @@ namespace BassClefStudio.UWP.Background.AppServices
     public class AppServiceOutput
     {
         /// <summary>
-        /// A <see cref="bool"/> indicating whether the <see cref="AppServiceHandler"/>'s operation succeeded.
+        /// A <see cref="bool"/> indicating whether the <see cref="IAppService"/>'s operation succeeded.
         /// </summary>
         public bool Sucess { get; }
 
@@ -52,16 +52,46 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <param name="returnedValue">The value returned from the app service.</param>
         public AppServiceOutput(ValueSet returnedValue)
         {
-            Sucess = returnedValue["Success"] as bool? ?? false;
-            VersionNumber = returnedValue["Version"] as int? ?? 0;
-
-            if (Sucess)
+            if(returnedValue.TryGetValue("Success", out var s))
             {
-                Output = returnedValue["Returns"];
+                Sucess = s as bool? ?? false;
             }
             else
             {
-                ErrorMessage = returnedValue["Error"] as string;
+                throw new ArgumentException("A value was missing from the returned content.", "Success");
+            }
+
+            if (returnedValue.TryGetValue("Version", out var v))
+            {
+                VersionNumber = v as int? ?? 0;
+            }
+            else
+            {
+                throw new ArgumentException("A value was missing from the returned content.", "Version");
+            }
+
+            if (Sucess)
+            {
+                if (returnedValue.TryGetValue("Returns", out var r))
+                {
+                    Output = r;
+                }
+                else
+                {
+                    throw new ArgumentException("A value was missing from the returned content.", "Returns");
+                }
+            }
+            else
+            {
+
+                if (returnedValue.TryGetValue("Error", out var ex))
+                {
+                    ErrorMessage = ex as string;
+                }
+                else
+                {
+                    throw new ArgumentException("A value was missing from the returned content.", "Error");
+                }
             }
         }
 
