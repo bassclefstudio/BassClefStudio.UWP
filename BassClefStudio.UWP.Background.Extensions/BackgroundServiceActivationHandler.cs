@@ -3,6 +3,7 @@ using BassClefStudio.UWP.Background.Tasks;
 using BassClefStudio.UWP.Lifecycle;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
@@ -17,8 +18,15 @@ namespace BassClefStudio.UWP.Background.Extensions
         /// <inheritdoc/>
         public bool Enabled { get; }
 
+        /// <summary>
+        /// The collection of attached <see cref="IBackgroundService"/>s.
+        /// </summary>
         public IEnumerable<IBackgroundService> BackgroundServices { get; }
 
+        /// <summary>
+        /// Creates a new <see cref="BackgroundServiceActivationHandler"/>.
+        /// </summary>
+        /// <param name="backgroundService">The collection of attached <see cref="IBackgroundService"/>s.</param>
         public BackgroundServiceActivationHandler(IEnumerable<IBackgroundService> backgroundService)
         {
             BackgroundServices = backgroundService;
@@ -57,7 +65,7 @@ namespace BassClefStudio.UWP.Background.Extensions
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine($"Background task threw exception: {ex}");
             }
             finally
             {

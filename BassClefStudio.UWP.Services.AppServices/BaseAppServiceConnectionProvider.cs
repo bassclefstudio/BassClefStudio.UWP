@@ -81,15 +81,4 @@ namespace BassClefStudio.UWP.Services.AppServices
             Connection.Dispose();
         }
     }
-
-    public static class AppServiceConnectionExtensions
-    {
-        /// <summary>
-        /// Registers the <see cref="BaseAppServiceConnectionProvider"/> as an <see cref="IAppServiceConnectionProvider"/> to provide a way to connect to basic <see cref="IAppService"/>s and send messages.
-        /// </summary>
-        public static void AddBaseAppServices(this ContainerBuilder builder)
-        {
-            builder.RegisterType<BaseAppServiceConnectionProvider>().AsImplementedInterfaces();
-        }
-    }
 }

@@ -17,9 +17,28 @@ namespace BassClefStudio.UWP.Background.AppServices
         public string CommandName { get; }
 
         /// <inheritdoc/>
+        public string Name { get; }
+
+        /// <inheritdoc/>
+        public string Description { get; }
+
+        /// <summary>
+        /// Creates a new <see cref="CommandAppService"/>.
+        /// </summary>
+        /// <param name="commandName">The name of the command that activates this <see cref="IAppService"/>.</param>
+        /// <param name="displayName">See <see cref="Name"/>.</param>
+        /// <param name="description">See <see cref="Description"/>.</param>
+        public CommandAppService(string commandName, string displayName, string description)
+        {
+            CommandName = commandName;
+            Name = displayName;
+            Description = description;
+        }
+
+        /// <inheritdoc/>
         public bool CanExecute(AppServiceInput input)
         {
-            return input.CommandName == CommandName;
+            return input.CommandName.Equals(CommandName, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

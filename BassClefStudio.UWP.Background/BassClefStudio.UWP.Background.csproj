@@ -126,6 +126,7 @@
     <Compile Include="AppServices\CommandAppService.cs" />
     <Compile Include="AppServices\AppServiceInput.cs" />
     <Compile Include="AppServices\AppServiceOutput.cs" />
+    <Compile Include="AppServices\Core\HelpAppService.cs" />
     <Compile Include="Tasks\BackgroundService.cs" />
     <Compile Include="AppServices\IAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

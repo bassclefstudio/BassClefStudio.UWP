@@ -121,6 +121,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AppServiceConnectionExtensions.cs" />
     <Compile Include="BaseAppServiceConnectionProvider.cs" />
     <Compile Include="AppServiceConnectionInfo.cs" />
     <Compile Include="IAppServiceConnectionProvider.cs" />

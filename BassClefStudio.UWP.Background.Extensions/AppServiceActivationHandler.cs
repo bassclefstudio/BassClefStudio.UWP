@@ -20,8 +20,15 @@ namespace BassClefStudio.UWP.Background.Extensions
         /// <inheritdoc/>
         public bool Enabled { get; }
 
+        /// <summary>
+        /// The collection of attached <see cref="IAppService"/>s.
+        /// </summary>
         public IEnumerable<IAppService> AppServices { get; }
 
+        /// <summary>
+        /// Creates a new <see cref="AppServiceActivationHandler"/>.
+        /// </summary>
+        /// <param name="appServices">The collection of attached <see cref="IAppService"/>s.</param>
         public AppServiceActivationHandler(IEnumerable<IAppService> appServices)
         {
             AppServices = appServices;
