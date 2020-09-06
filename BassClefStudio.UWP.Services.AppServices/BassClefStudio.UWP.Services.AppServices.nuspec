@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>BassClefStudio.UWP.Background.Extensions</id>
+    <id>BassClefStudio.UWP.Services.AppServices</id>
     <version>2.1.0</version>
-    <title>BassClefStudio.UWP.Background.Extensions</title>
+    <title>BassClefStudio.UWP.Services.AppServices</title>
     <authors>BassClefStudio</authors>
     <owners>BassClefStudio</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <repository type="git" url="https://github.com/bassclefstudio/UWP-Libraries"/>
-    <description>Provides services for using BassClefStudio.UWP.Background in a BassClefStudio.UWP.Lifecycle-managed Application.</description>
+    <description>Provides services for connecting to and calling app services from another application.</description>
     <dependencies>
       <group targetFramework="uap10.0.15063">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10"/>
-        <dependency id="BassClefStudio.NET.Core" version="1.2.0"/>
         <dependency id="BassClefStudio.UWP.Background" version="2.1.0"/>
-        <dependency id="BassClefStudio.UWP.Lifecycle" version="2.0.0"/>
         <dependency id="Autofac" version="4.9.4"/>
       </group>
     </dependencies>
