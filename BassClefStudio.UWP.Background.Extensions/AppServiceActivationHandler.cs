@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
+using Windows.Foundation.Collections;
 
 namespace BassClefStudio.UWP.Background.Extensions
 {
@@ -36,6 +37,7 @@ namespace BassClefStudio.UWP.Background.Extensions
         }
 
         private BackgroundTaskDeferral taskDeferral;
+        private AppServiceDeferral serviceDeferral;
 
         /// <inheritdoc/>
         public bool BackgroundActivated(Application app, BackgroundActivatedEventArgs args)
@@ -46,7 +48,7 @@ namespace BassClefStudio.UWP.Background.Extensions
                 {
                     IBackgroundTaskInstance taskInstance = args.TaskInstance;
 
-                    taskDeferral = taskInstance.GetDeferral();
+                    taskDeferral = args.TaskInstance.GetDeferral();
                     taskInstance.Canceled += OnAppServiceCanceled;
                     var appServiceConnection = triggerDetails.AppServiceConnection;
                     appServiceConnection.RequestReceived += OnRequestRecieved;
@@ -67,16 +69,17 @@ namespace BassClefStudio.UWP.Background.Extensions
 
         private void OnServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
         {
-            taskDeferral.Complete();
+            CompleteDeferral();
         }
 
         private void OnAppServiceCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            taskDeferral.Complete();
+            CompleteDeferral();
         }
 
         private void OnRequestRecieved(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
+            serviceDeferral = args.GetDeferral();
             var toRun = new SynchronousTask(() => ProcessRequest(sender, args));
             toRun.RunTask();
         }
@@ -88,10 +91,17 @@ namespace BassClefStudio.UWP.Background.Extensions
             if(service != null)
             {
                 var output = await service.ExecuteAsync(input);
-                await args.Request.SendResponseAsync(output.CreateOutput());
+                ValueSet result = output.CreateOutput();
+                await args.Request.SendResponseAsync(result);
             }
 
-            taskDeferral.Complete();
+            CompleteDeferral();
+        }
+
+        private void CompleteDeferral()
+        {
+            serviceDeferral?.Complete();
+            taskDeferral?.Complete();
         }
     }
 }

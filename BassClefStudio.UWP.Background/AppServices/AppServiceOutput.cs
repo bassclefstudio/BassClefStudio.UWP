@@ -15,7 +15,7 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <summary>
         /// A <see cref="bool"/> indicating whether the <see cref="IAppService"/>'s operation succeeded.
         /// </summary>
-        public bool Sucess { get; }
+        public bool Success { get; }
 
         /// <summary>
         /// The version of the app service stack that created the <see cref="AppServiceOutput"/>.
@@ -23,12 +23,12 @@ namespace BassClefStudio.UWP.Background.AppServices
         public int VersionNumber { get; }
 
         /// <summary>
-        /// If <see cref="Sucess"/> is false, contains the error message as a <see cref="string"/>.
+        /// If <see cref="Success"/> is false, contains the error message as a <see cref="string"/>.
         /// </summary>
         public string ErrorMessage { get; }
 
         /// <summary>
-        /// If <see cref="Sucess"/> is true, contains the <see cref="object"/> sent from the <see cref="AppServiceHandler"/>.
+        /// If <see cref="Success"/> is true, contains the <see cref="object"/> sent from the <see cref="AppServiceHandler"/>.
         /// </summary>
         public object Output { get; }
 
@@ -40,7 +40,7 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <param name="errorMessage">If applicable, the <see cref="object"/> sent from the <see cref="IAppService"/>.</param>
         public AppServiceOutput(bool sucess, object output = null, string errorMessage = null)
         {
-            Sucess = sucess;
+            Success = sucess;
             VersionNumber = AppServiceVersion.VersionNumber;
             ErrorMessage = errorMessage;
             Output = output;
@@ -54,7 +54,7 @@ namespace BassClefStudio.UWP.Background.AppServices
         {
             if(returnedValue.TryGetValue("Success", out var s))
             {
-                Sucess = s as bool? ?? false;
+                Success = s as bool? ?? false;
             }
             else
             {
@@ -70,7 +70,7 @@ namespace BassClefStudio.UWP.Background.AppServices
                 throw new ArgumentException("A value was missing from the returned content.", "Version");
             }
 
-            if (Sucess)
+            if (Success)
             {
                 if (returnedValue.TryGetValue("Returns", out var r))
                 {
@@ -101,10 +101,10 @@ namespace BassClefStudio.UWP.Background.AppServices
         public ValueSet CreateOutput()
         {
             var set = new ValueSet();
-            set.Add("Success", Sucess);
+            set.Add("Success", Success);
             set.Add("Version", VersionNumber);
 
-            if (Sucess)
+            if (Success)
             {
                 set.Add("Returns", Output);
             }

@@ -136,12 +136,6 @@
       <Version>6.2.10</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.csproj">
-      <Project>{9811f019-f103-42b8-91ae-9dbf0787e6eb}</Project>
-      <Name>BassClefStudio.UWP.Background</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
