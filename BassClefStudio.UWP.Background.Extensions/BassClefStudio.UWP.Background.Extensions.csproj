@@ -141,6 +141,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BassClefStudio.UWP.Background\BassClefStudio.UWP.Background.csproj">
+      <Project>{9811f019-f103-42b8-91ae-9dbf0787e6eb}</Project>
+      <Name>BassClefStudio.UWP.Background</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BassClefStudio.UWP.Lifecycle\BassClefStudio.UWP.Lifecycle.csproj">
       <Project>{0f2ffdcd-3ae4-4695-a63f-c657fd713fb6}</Project>
       <Name>BassClefStudio.UWP.Lifecycle</Name>
