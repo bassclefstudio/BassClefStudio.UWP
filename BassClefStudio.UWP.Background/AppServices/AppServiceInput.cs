@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Windows.Foundation.Collections;
 
 namespace BassClefStudio.UWP.Background.AppServices
@@ -41,8 +42,23 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <param name="returnedValue">The value returned from the app service.</param>
         public AppServiceInput(ValueSet returnedValue)
         {
-            CommandName = returnedValue["Command"] as string;
-            VersionNumber = returnedValue["Version"] as int? ?? 0;
+            if (returnedValue.TryGetValue("Command", out var c))
+            {
+                CommandName = c as string;
+            }
+            else
+            {
+                throw new ArgumentException("A value was missing from the returned content.", "Command");
+            }
+
+            if (returnedValue.TryGetValue("Version", out var v))
+            {
+                VersionNumber = v as int? ?? 0;
+            }
+            else
+            {
+                throw new ArgumentException("A value was missing from the returned content.", "Version");
+            }
 
             InputParameters = new Dictionary<string, object>();
             foreach (var value in returnedValue)

@@ -13,9 +13,9 @@ namespace BassClefStudio.UWP.Background.AppServices
     public class AppServiceOutput
     {
         /// <summary>
-        /// A <see cref="bool"/> indicating whether the <see cref="AppServiceHandler"/>'s operation succeeded.
+        /// A <see cref="bool"/> indicating whether the <see cref="IAppService"/>'s operation succeeded.
         /// </summary>
-        public bool Sucess { get; }
+        public bool Success { get; }
 
         /// <summary>
         /// The version of the app service stack that created the <see cref="AppServiceOutput"/>.
@@ -23,12 +23,12 @@ namespace BassClefStudio.UWP.Background.AppServices
         public int VersionNumber { get; }
 
         /// <summary>
-        /// If <see cref="Sucess"/> is false, contains the error message as a <see cref="string"/>.
+        /// If <see cref="Success"/> is false, contains the error message as a <see cref="string"/>.
         /// </summary>
         public string ErrorMessage { get; }
 
         /// <summary>
-        /// If <see cref="Sucess"/> is true, contains the <see cref="object"/> sent from the <see cref="AppServiceHandler"/>.
+        /// If <see cref="Success"/> is true, contains the <see cref="object"/> sent from the <see cref="AppServiceHandler"/>.
         /// </summary>
         public object Output { get; }
 
@@ -40,7 +40,7 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <param name="errorMessage">If applicable, the <see cref="object"/> sent from the <see cref="IAppService"/>.</param>
         public AppServiceOutput(bool sucess, object output = null, string errorMessage = null)
         {
-            Sucess = sucess;
+            Success = sucess;
             VersionNumber = AppServiceVersion.VersionNumber;
             ErrorMessage = errorMessage;
             Output = output;
@@ -52,16 +52,46 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <param name="returnedValue">The value returned from the app service.</param>
         public AppServiceOutput(ValueSet returnedValue)
         {
-            Sucess = returnedValue["Success"] as bool? ?? false;
-            VersionNumber = returnedValue["Version"] as int? ?? 0;
-
-            if (Sucess)
+            if(returnedValue.TryGetValue("Success", out var s))
             {
-                Output = returnedValue["Returns"];
+                Success = s as bool? ?? false;
             }
             else
             {
-                ErrorMessage = returnedValue["Error"] as string;
+                throw new ArgumentException("A value was missing from the returned content.", "Success");
+            }
+
+            if (returnedValue.TryGetValue("Version", out var v))
+            {
+                VersionNumber = v as int? ?? 0;
+            }
+            else
+            {
+                throw new ArgumentException("A value was missing from the returned content.", "Version");
+            }
+
+            if (Success)
+            {
+                if (returnedValue.TryGetValue("Returns", out var r))
+                {
+                    Output = r;
+                }
+                else
+                {
+                    throw new ArgumentException("A value was missing from the returned content.", "Returns");
+                }
+            }
+            else
+            {
+
+                if (returnedValue.TryGetValue("Error", out var ex))
+                {
+                    ErrorMessage = ex as string;
+                }
+                else
+                {
+                    throw new ArgumentException("A value was missing from the returned content.", "Error");
+                }
             }
         }
 
@@ -71,10 +101,10 @@ namespace BassClefStudio.UWP.Background.AppServices
         public ValueSet CreateOutput()
         {
             var set = new ValueSet();
-            set.Add("Success", Sucess);
+            set.Add("Success", Success);
             set.Add("Version", VersionNumber);
 
-            if (Sucess)
+            if (Success)
             {
                 set.Add("Returns", Output);
             }
