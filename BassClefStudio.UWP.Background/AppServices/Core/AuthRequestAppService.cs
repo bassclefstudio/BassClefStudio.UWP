@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.Sockets;
 using Windows.UI.Xaml.Controls;
 
 namespace BassClefStudio.UWP.Background.AppServices.Core
@@ -31,12 +32,12 @@ namespace BassClefStudio.UWP.Background.AppServices.Core
                 object scopes = input["scopes"];
                 if (scopes is string s)
                 {
-                    await AuthProvider.RequestScopes(input.PackageFamilyName, new string[] { s });
+                    await AuthProvider.RequestScopesAsync(new AppServiceAuthRequest(input.PackageFamilyName, new string[] { s }));
                     return null;
                 }
                 else if (scopes is IEnumerable<string> ses)
                 {
-                    await AuthProvider.RequestScopes(input.PackageFamilyName, ses);
+                    await AuthProvider.RequestScopesAsync(new AppServiceAuthRequest(input.PackageFamilyName, ses));
                     return null;
                 }
                 else
