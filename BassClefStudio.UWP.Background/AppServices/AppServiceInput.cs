@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Windows.Foundation.Collections;
 
@@ -20,18 +21,44 @@ namespace BassClefStudio.UWP.Background.AppServices
         public int VersionNumber { get; }
 
         /// <summary>
+        /// The name of the app package that sent the request.
+        /// </summary>
+        public string PackageFamilyName { get; }
+
+        /// <summary>
         /// A collection of <see cref="object"/> inputs, keyed by <see cref="string"/> names.
         /// </summary>
         public Dictionary<string, object> InputParameters { get; }
 
         /// <summary>
+        /// Gets a value from <see cref="InputParameters"/> with the given key.
+        /// </summary>
+        /// <param name="key">The <see cref="string"/> name of the input.</param>
+        public object this[string key] => InputParameters[key];
+
+        /// <summary>
+        /// Attempts to get a value from <see cref="InputParameters"/> with the given key.
+        /// </summary>
+        /// <param name="key">The <see cref="string"/> name of the input.</param>
+        /// <param name="o">If the value is found, the given variable is set to the <see cref="object"/> value.</param>
+        public bool TryGetValue(string key, out object o) => InputParameters.TryGetValue(key, out o);
+
+        /// <summary>
+        /// Returns a <see cref="bool"/> indicating whether an input value is present.
+        /// </summary>
+        /// <param name="key">The <see cref="string"/> name of the input.</param>
+        public bool ContainsKey(string key) => InputParameters.ContainsKey(key);
+
+        /// <summary>
         /// Creates a new <see cref="AppServiceInput"/>.
         /// </summary>
         /// <param name="commandName">The name of the command to execute.</param>
+        /// <param name="packageFamilyName">The name of the app package that sent the request.</param>
         /// <param name="inputs">A collection of <see cref="object"/> inputs, keyed by <see cref="string"/> names.</param>
-        public AppServiceInput(string commandName, Dictionary<string, object> inputs)
+        public AppServiceInput(string commandName, string packageFamilyName, Dictionary<string, object> inputs)
         {
             CommandName = commandName;
+            PackageFamilyName = packageFamilyName;
             InputParameters = inputs;
             VersionNumber = AppServiceVersion.VersionNumber;
         }
@@ -60,6 +87,15 @@ namespace BassClefStudio.UWP.Background.AppServices
                 throw new ArgumentException("A value was missing from the returned content.", "Version");
             }
 
+            if (returnedValue.TryGetValue("Package", out var p))
+            {
+                PackageFamilyName = p as string;
+            }
+            else
+            {
+                throw new ArgumentException("A value was missing from the returned content.", "Package");
+            }
+
             InputParameters = new Dictionary<string, object>();
             foreach (var value in returnedValue)
             {
@@ -80,6 +116,7 @@ namespace BassClefStudio.UWP.Background.AppServices
             var set = new ValueSet();
             set.Add("Command", CommandName);
             set.Add("Version", VersionNumber);
+            set.Add("Package", PackageFamilyName);
             foreach (var input in InputParameters)
             {
                 set.Add($"Input_{input.Key}", input.Value);

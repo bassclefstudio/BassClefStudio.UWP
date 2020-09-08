@@ -14,6 +14,6 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <summary>
         /// The version number of the <see cref="IAppService"/> API.
         /// </summary>
-        public const int VersionNumber = 2;
+        public const int VersionNumber = 3;
     }
 }

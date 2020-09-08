@@ -44,19 +44,61 @@ namespace BassClefStudio.UWP.Background.AppServices
         /// <summary>
         /// A function that returns an asynchronous <see cref="Task{TResult}"/> that takes an <see cref="Dictionary{TKey, TValue}"/> and returns an <see cref="object"/>. To send and recieve <see cref="AppServiceOutput"/> and <see cref="AppServiceOutput"/> objects, use <see cref="ExecuteAsync"/>.
         /// </summary>
-        public abstract Task<object> GetOutputInternal(Dictionary<string, object> inputs);
+        protected abstract Task<object> GetOutputInternal(AppServiceInput input);
 
         /// <inheritdoc/>
-        public async Task<AppServiceOutput> ExecuteAsync(AppServiceInput input)
+        public virtual async Task<AppServiceOutput> ExecuteAsync(AppServiceInput input)
         {
             try
             {
-                var r = await GetOutputInternal(input.InputParameters);
+                var r = await GetOutputInternal(input);
                 return new AppServiceOutput(true, output: r);
             }
             catch(Exception ex)
             {
                 return new AppServiceOutput(false, errorMessage: ex.ToString());
+            }
+        }
+    }
+
+    /// <summary>
+    /// A <see cref="CommandAppService"/> which only allows requests which are authorized with the given <see cref="Scopes"/>.
+    /// </summary>
+    public abstract class AuthenticatedCommandAppService : CommandAppService
+    {
+        private IAppServiceAuthProvider AuthProvider { get; }
+
+        /// <summary>
+        /// A collection of required scopes an app must have to access this <see cref="IAppService"/>.
+        /// </summary>
+        public string[] Scopes { get; }
+
+        /// <summary>
+        /// Creates a new <see cref="AuthenticatedCommandAppService"/>.
+        /// </summary>
+        /// <param name="authProvider">The <see cref="IAppServiceAuthProvider"/> which will manage authorization for this app service.</param>
+        /// <param name="scopes">A collection of required scopes an app must have to access this <see cref="IAppService"/>.</param>
+        /// <param name="commandName">The name of the command that activates this <see cref="IAppService"/>.</param>
+        /// <param name="displayName">See <see cref="IAppService.Name"/>.</param>
+        /// <param name="description">See <see cref="IAppService.Description"/>.</param>
+        public AuthenticatedCommandAppService(IAppServiceAuthProvider authProvider, string[] scopes, string commandName, string displayName, string description) : base(commandName, displayName, description)
+        {
+            AuthProvider = authProvider;
+            Scopes = scopes;
+        }
+
+        /// <inheritdoc/>
+        public override async Task<AppServiceOutput> ExecuteAsync(AppServiceInput input)
+        {
+            string[] authorization = AuthProvider.GetScopes(input.PackageFamilyName);
+            var missing = Scopes.Where(s => !authorization.Contains(s));
+            if (missing.Any())
+            {
+                return new AppServiceOutput(false, errorMessage: $"This app is not authorized to access this API because it is missing the following scopes: {string.Join(", ", missing)}.");
+            }
+            else
+            {
+                return await base.ExecuteAsync(input);
             }
         }
     }

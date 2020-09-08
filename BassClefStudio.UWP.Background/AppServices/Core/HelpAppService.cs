@@ -23,9 +23,9 @@ namespace BassClefStudio.UWP.Background.AppServices.Core
         { }
 
         /// <inheritdoc/>
-        public override async Task<object> GetOutputInternal(Dictionary<string, object> inputs)
+        protected override async Task<object> GetOutputInternal(AppServiceInput inputs)
         {
-            return AppServices.Select(s => $"{s.Name}: {s.Description}").ToArray();
+            return AppServices.Select(s => $"{s.Name}{(s is CommandAppService c ? $" ({c.CommandName})" : "")}: {s.Description}").ToArray();
         }
     }
 }

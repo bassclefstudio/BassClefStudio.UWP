@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 
 namespace BassClefStudio.UWP.Lifecycle
@@ -42,8 +43,9 @@ namespace BassClefStudio.UWP.Lifecycle
         /// A method that is called whenever a foreground-activated <see cref="Application"/> is closing or returning to the background. Here, the <see cref="ILifecycleHandler"/> can dispose or broker resources before the <see cref="Application"/> has fully closed.
         /// </summary>
         /// <param name="app">The app's <see cref="Application"/> object.</param>
+        /// <param name="args">A <see cref="SuspendingOperation"/> argument containing information about the suspending application.</param>
         /// <returns>A <see cref="bool"/> value indicating whether any action was performed successfully.</returns>
-        bool OnSuspending(Application app);
+        bool OnSuspending(Application app, SuspendingOperation args);
     }
 
     /// <summary>

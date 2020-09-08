@@ -83,7 +83,7 @@ namespace BassClefStudio.UWP.Lifecycle
             var suspendHandlers = LifecycleContainer.Resolve<IEnumerable<ISuspendingHandler>>();
             foreach (var handler in suspendHandlers.Where(h => h.Enabled))
             {
-                handler.OnSuspending(this);
+                handler.OnSuspending(this, e.SuspendingOperation);
             }
         }
 

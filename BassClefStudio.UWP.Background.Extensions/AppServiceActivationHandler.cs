@@ -3,6 +3,7 @@ using BassClefStudio.UWP.Background.AppServices;
 using BassClefStudio.UWP.Lifecycle;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,12 +70,12 @@ namespace BassClefStudio.UWP.Background.Extensions
 
         private void OnServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
         {
-            CompleteDeferral();
+            taskDeferral.Complete();
         }
 
         private void OnAppServiceCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            CompleteDeferral();
+            taskDeferral.Complete();
         }
 
         private void OnRequestRecieved(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
@@ -85,23 +86,26 @@ namespace BassClefStudio.UWP.Background.Extensions
         }
 
         private async Task ProcessRequest(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
-        { 
-            var input = new AppServiceInput(args.Request.Message);
-            var service = AppServices.FirstOrDefault(s => s.CanExecute(input));
-            if(service != null)
-            {
-                var output = await service.ExecuteAsync(input);
-                ValueSet result = output.CreateOutput();
-                await args.Request.SendResponseAsync(result);
-            }
-
-            CompleteDeferral();
-        }
-
-        private void CompleteDeferral()
         {
-            serviceDeferral?.Complete();
-            taskDeferral?.Complete();
+            try
+            {
+                var input = new AppServiceInput(args.Request.Message);
+                var service = AppServices.FirstOrDefault(s => s.CanExecute(input));
+                if (service != null)
+                {
+                    var output = await service.ExecuteAsync(input);
+                    ValueSet result = output.CreateOutput();
+                    await args.Request.SendResponseAsync(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"An exception {ex} was caught while attempting to respond to an app service request.");
+            }
+            finally
+            {
+                serviceDeferral.Complete();
+            }
         }
     }
 }
