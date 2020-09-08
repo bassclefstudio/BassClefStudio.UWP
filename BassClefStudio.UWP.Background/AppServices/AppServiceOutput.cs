@@ -8,7 +8,7 @@ using Windows.Foundation.Collections;
 namespace BassClefStudio.UWP.Background.AppServices
 {
     /// <summary>
-    /// Represents the values returned from an app service managed by an <see cref="AppServiceHandler"/>.
+    /// Represents the values returned from an app service managed by an <see cref="IAppService"/>.
     /// </summary>
     public class AppServiceOutput
     {
@@ -28,7 +28,7 @@ namespace BassClefStudio.UWP.Background.AppServices
         public string ErrorMessage { get; }
 
         /// <summary>
-        /// If <see cref="Success"/> is true, contains the <see cref="object"/> sent from the <see cref="AppServiceHandler"/>.
+        /// If <see cref="Success"/> is true, contains the <see cref="object"/> sent from the <see cref="IAppService"/>.
         /// </summary>
         public object Output { get; }
 

@@ -34,7 +34,7 @@ namespace BassClefStudio.UWP.Background.Tasks
         Task RunAsync(IBackgroundTaskInstance task);
 
         /// <summary>
-        /// Asynchronously registers the associated background task, re-registering if <paramref name="activateIfDisabled"/> is set to true, and sets the associated <see cref="Registration"/>.
+        /// Asynchronously registers the associated background task, re-registering if <paramref name="reregisterTask"/> is set to true, and sets the associated <see cref="Registration"/>.
         /// </summary>
         /// <param name="reregisterTask">A <see cref="bool"/> indicating whether to unregister a currently registered attached background task.</param>
         Task<bool> RegisterTaskAsync(bool reregisterTask = false);

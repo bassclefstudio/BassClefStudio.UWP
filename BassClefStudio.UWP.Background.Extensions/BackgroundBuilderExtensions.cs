@@ -41,5 +41,14 @@ namespace BassClefStudio.UWP.Background.Extensions
                 .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
                 .AsImplementedInterfaces();
         }
+
+        /// <summary>
+        /// Adds the given <see cref="IAppServiceAuthProvider"/> to the container. This is required if any <see cref="IAppService"/>s in the app use authorization, or if another component needs to handle scoped authorization.
+        /// </summary>
+        /// <typeparam name="T">The type of <see cref="IAppServiceAuthProvider"/> to register.</typeparam>
+        public static void AddAppServiceAuthorization<T>(this ContainerBuilder builder) where T : IAppServiceAuthProvider
+        {
+            builder.RegisterType<T>().AsImplementedInterfaces();
+        }
     }
 }
