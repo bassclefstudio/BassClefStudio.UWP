@@ -40,7 +40,7 @@ namespace BassClefStudio.UWP.Background.AppServices.Core
         }
 
         /// <inheritdoc/>
-        public async Task RequestScopesAsync(AppServiceAuthRequest request)
+        public virtual async Task RequestScopesAsync(AppServiceAuthRequest request)
         {
             PendingRequestsList.Add(request);
         }
