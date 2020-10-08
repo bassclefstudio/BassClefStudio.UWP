@@ -124,7 +124,7 @@
   <ItemGroup>
     <Compile Include="DI\NavigationServiceExtensions.cs" />
     <Compile Include="Shell\ContinuablePage.cs" />
-    <Compile Include="DI\IViewModelHelpers.cs" />
+    <Compile Include="DI\IViewModels.cs" />
     <Compile Include="DI\ViewModelModule.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
