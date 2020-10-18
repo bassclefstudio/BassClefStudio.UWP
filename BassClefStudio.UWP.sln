@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BassClefStudio.UWP.Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BassClefStudio.UWP.Services.AppServices", "BassClefStudio.UWP.Services.AppServices\BassClefStudio.UWP.Services.AppServices.csproj", "{8CAD8090-AFBD-490E-B1DF-70E664C0255C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BassClefStudio.UWP.OAuth", "BassClefStudio.UWP.OAuth\BassClefStudio.UWP.OAuth.csproj", "{762B2BF0-B52C-4095-80D4-1403D588754B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -215,6 +217,26 @@ Global
 		{8CAD8090-AFBD-490E-B1DF-70E664C0255C}.Release|x64.Build.0 = Release|x64
 		{8CAD8090-AFBD-490E-B1DF-70E664C0255C}.Release|x86.ActiveCfg = Release|x86
 		{8CAD8090-AFBD-490E-B1DF-70E664C0255C}.Release|x86.Build.0 = Release|x86
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|ARM.ActiveCfg = Debug|ARM
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|ARM.Build.0 = Debug|ARM
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|ARM64.Build.0 = Debug|ARM64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|x64.ActiveCfg = Debug|x64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|x64.Build.0 = Debug|x64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|x86.ActiveCfg = Debug|x86
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Debug|x86.Build.0 = Debug|x86
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|ARM.ActiveCfg = Release|ARM
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|ARM.Build.0 = Release|ARM
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|ARM64.ActiveCfg = Release|ARM64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|ARM64.Build.0 = Release|ARM64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|x64.ActiveCfg = Release|x64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|x64.Build.0 = Release|x64
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|x86.ActiveCfg = Release|x86
+		{762B2BF0-B52C-4095-80D4-1403D588754B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

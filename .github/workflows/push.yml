@@ -32,5 +32,6 @@ jobs:
         nuget pack .\BassClefStudio.UWP.Services.AppList\BassClefStudio.UWP.Services.AppList.csproj
         nuget pack .\BassClefStudio.UWP.Services.AppServices\BassClefStudio.UWP.Services.AppServices.csproj
         nuget pack .\BassClefStudio.UWP.Services.Views\BassClefStudio.UWP.Services.Views.csproj
+        nuget pack .\BassClefStudio.UWP.OAuth\BassClefStudio.UWP.OAuth.csproj
     - name: Nuget Push
       run: nuget push "*.nupkg" -Source "GPR" -SkipDuplicate -NoSymbols
