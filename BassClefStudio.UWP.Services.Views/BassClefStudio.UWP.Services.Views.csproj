@@ -121,6 +121,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CoordinateExtensions.cs" />
     <Compile Include="IDialService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IStatusBarService.cs" />
