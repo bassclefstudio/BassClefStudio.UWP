@@ -72,6 +72,9 @@ namespace BassClefStudio.UWP.Navigation.Extensions
         }
     }
 
+    /// <summary>
+    /// Extensions for the adding <see cref="NavigationService"/> support to a <see cref="Lifecycle.Application"/>.
+    /// </summary>
     public static class NavigationBuilderExtensions
     {
         /// <summary>

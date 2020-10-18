@@ -37,6 +37,7 @@ namespace BassClefStudio.UWP.Core
             OnPropertyChanged(propertyName);
         }
 
+        /// <inheritdoc/>
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
@@ -68,6 +69,7 @@ namespace BassClefStudio.UWP.Core
             OnPropertyChanged(propertyName);
         }
 
+        /// <inheritdoc/>
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
@@ -99,6 +101,7 @@ namespace BassClefStudio.UWP.Core
             OnPropertyChanged(propertyName);
         }
 
+        /// <inheritdoc/>
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
