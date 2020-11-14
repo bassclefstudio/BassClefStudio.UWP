@@ -31,6 +31,9 @@ namespace BassClefStudio.UWP.Services.Views
         Task StopAsync();
     }
 
+    /// <summary>
+    /// Represents an <see cref="IStatusBarService"/> that uses the native Windows 10 Mobile status bar.
+    /// </summary>
     public class MobileStatusBarService : IStatusBarService
     {
         /// <summary>
@@ -83,6 +86,9 @@ namespace BassClefStudio.UWP.Services.Views
         }
     }
 
+    /// <summary>
+    /// Represents an <see cref="IStatusBarService"/> that uses the <see cref="TitleBarService"/> to provide a <see cref="Microsoft.UI.Xaml.Controls.ProgressBar"/> to manipulate.
+    /// </summary>
     public class TitleStatusBarService : IStatusBarService
     {
         private bool Showing = false;
@@ -134,8 +140,15 @@ namespace BassClefStudio.UWP.Services.Views
         }
     }
 
+    /// <summary>
+    /// Represents extension methods for adding <see cref="IStatusBarService"/>s to an <see cref="Autofac"/> container.
+    /// </summary>
     public static class StatusBarExtensions
     {
+        /// <summary>
+        /// Adds the relevant <see cref="IStatusBarService"/> to the <see cref="ContainerBuilder"/>.
+        /// </summary>
+        /// <param name="builder">The relevant DI <see cref="ContainerBuilder"/>.</param>
         public static void AddStatusBarService(this ContainerBuilder builder)
         {
             if(MobileStatusBarService.IsSupported())
