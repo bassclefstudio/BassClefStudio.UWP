@@ -2,6 +2,9 @@
 ![UWP Build and Pack](https://github.com/bassclefstudio/UWP-Libraries/workflows/UWP%20Build%20and%20Pack/badge.svg)
 
 A collection of UWP libraries for use in all types of UWP .NET projects.
+
+***Note:*** This project has been archived and replaced by the [BassClefStudio.AppModel](https://github.com/bassclefstudio/AppModel) set of libraries. This new repository doesn't currently contain all features of this UWP-specific library (e.g. AppList and AppServices), but it does provide a cross-platform implementation of DI and the MVVM pattern that is more flexible than this library. Therefore, no new updates will be pushed to the UWP-Libraries packages.
+
 ## BassClefStudio.UWP.Core
 Provides helper classes, services, and extension methods for creating UWP projects.
 ## BassClefStudio.UWP.Controls
